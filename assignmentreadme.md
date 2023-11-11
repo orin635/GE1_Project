@@ -19,10 +19,7 @@ How it works
 
   
 List of classes/assets in the project
-Class/asset	Source
-MyClass.cs	Self written
-MyClass1.cs	Modified from reference
-MyClass2.cs	From reference
+- to be completed
 
 
 References
