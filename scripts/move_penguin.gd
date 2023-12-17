@@ -11,11 +11,6 @@ var speed = 8
 @onready var spring_arm = $SpringArm3D
 @onready var model = $Body
 
-var cooldown_timer = 0.0
-var cooldown_duration = 0.1
-
-var run_cooldown_timer = 0.0
-var run_cooldown_duration = 5
 
 #Animation vars
 @onready var lWing = $L_Wing
@@ -46,38 +41,16 @@ func get_input(delta):
 
 func _process(delta):
 	get_input(delta)
-	animation(velocity)
-
-
-# Calculate collisions
-func handle_collision(collision):
-	var normal = collision.get_normal()
-	var impulse_direction = -normal
-	print(impulse_direction)
-	# Calculate push force based on penguin's speed
-	var penguin_speed = velocity.length()
-	var push_force = penguin_speed * 3
-	var hit_force = impulse_direction * push_force
-	hit_force.y = 3
-	collision.get_collider().apply_central_impulse(hit_force)
-	cooldown_timer = cooldown_duration
+	#animation(velocity)
 
 
 func _physics_process(delta):
-	cooldown_timer -= delta
-	run_cooldown_timer -= delta
 	velocity.y += -gravity * delta
 	move_and_slide()
 	
 	if velocity.length() > 1.0:
 		model.rotation.y = lerp_angle(model.rotation.y, spring_arm.rotation.y, rotation_speed * delta)
 	
-	
-	# Collect collisions
-	for i in get_slide_collision_count():
-		var c = get_slide_collision(i)
-		if c.get_collider() is RigidBody3D and cooldown_timer <= 0.0:
-			handle_collision(c)
 
 
 func animation(velocity):
@@ -97,3 +70,19 @@ func _unhandled_input(event):
 
 
 
+
+#Check prime collision area
+func _on_area_3d_body_entered(body):
+	if body is RigidBody3D:  # Check if the entered body is the ball (replace with your desired type)
+		var character_position = global_transform.origin
+		var ball_position = body.global_transform.origin
+		var hit_direction = (ball_position - character_position).normalized()
+		
+		#Calculate penguin speed to get force of kick
+		var penguin_speed = velocity.length()
+		var push_force = penguin_speed * 3
+		var hit_force = hit_direction * push_force
+		
+		
+		# Apply an impulse force to the ball in the calculated direction
+		body.apply_central_impulse(hit_force)
