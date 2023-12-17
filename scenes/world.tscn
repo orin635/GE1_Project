@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvxt36dwb8clm"]
+[gd_scene load_steps=16 format=3 uid="uid://cvxt36dwb8clm"]
 
 [ext_resource type="PackedScene" uid="uid://cs574vn1ntiio" path="res://scenes/penguin.tscn" id="1_14ifo"]
 [ext_resource type="PackedScene" uid="uid://qt50ytkqxqvk" path="res://scenes/ball.tscn" id="1_if7w1"]
@@ -28,6 +28,19 @@ material = SubResource("StandardMaterial3D_xyf1g")
 
 [sub_resource type="BoxMesh" id="BoxMesh_lwet4"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_53ymm"]
+albedo_color = Color(0.454902, 0.454902, 0.454902, 1)
+metallic = 0.23
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yu2s5"]
+material = SubResource("StandardMaterial3D_53ymm")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4vrpg"]
+albedo_color = Color(0.494118, 0.494118, 0.494118, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_68it3"]
+material = SubResource("StandardMaterial3D_4vrpg")
+
 [node name="Node3D" type="Node3D"]
 
 [node name="Floor" type="StaticBody3D" parent="."]
@@ -44,12 +57,6 @@ mesh = SubResource("BoxMesh_tw2sc")
 transform = Transform3D(-0.01, 0, -4.41485e-08, 0, 0.01, 0, 4.41485e-10, 0, -0.01, 0, 0.4961, 0)
 mesh = SubResource("BoxMesh_m7ly8")
 skeleton = NodePath("")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0288353, 27.5602, -41.9137)
-light_energy = 4.988
-light_indirect_energy = 11.81
-shadow_enabled = true
 
 [node name="PenguinMainScene" parent="." instance=ExtResource("1_14ifo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174671, 0.325781, -7.47875)
@@ -92,3 +99,92 @@ shape = SubResource("BoxShape3D_d0hrn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Wall4"]
 mesh = SubResource("BoxMesh_lwet4")
+
+[node name="FloodLight" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FloodLight"]
+transform = Transform3D(1, 0, 0, 0, 15, 0, 0, 0, 1, 22.5, 15, 45.5)
+mesh = SubResource("CylinderMesh_yu2s5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="FloodLight/MeshInstance3D"]
+transform = Transform3D(8.98224, -1.36129, 0.345001, 0.00636912, 0.222649, 0.0525147, -4.38791, -2.54848, 0.739877, -0.5, 1.022, -0.5)
+mesh = SubResource("BoxMesh_68it3")
+skeleton = NodePath("../..")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="FloodLight/MeshInstance3D/MeshInstance3D2"]
+transform = Transform3D(1, 4.46909e-07, -5.95921e-07, -4.46909e-07, 1, 4.21965e-09, 5.95921e-07, -4.21938e-09, 1, -0.00280905, 0.182382, -0.77293)
+light_energy = 16.0
+light_indirect_energy = 4.233
+light_volumetric_fog_energy = 3.263
+light_size = 0.424
+shadow_enabled = true
+spot_range = 189.976
+spot_angle = 35.082
+
+[node name="FloodLight2" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -22.5, 0, -22.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FloodLight2"]
+transform = Transform3D(0.950895, 0, 0.309515, 0, 15, 0, -0.309515, 0, 0.950895, 22.5, 15, 45.5)
+mesh = SubResource("CylinderMesh_yu2s5")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="FloodLight2/MeshInstance3D"]
+transform = Transform3D(8.98224, -1.36129, 0.345001, 0.00636912, 0.222649, 0.0525147, -4.38791, -2.54848, 0.739877, -0.5, 1.022, -0.5)
+mesh = SubResource("BoxMesh_68it3")
+skeleton = NodePath("../..")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="FloodLight2/MeshInstance3D/MeshInstance3D2"]
+transform = Transform3D(1, 4.46909e-07, -5.95921e-07, -4.46909e-07, 1, 4.21965e-09, 5.95921e-07, -4.21938e-09, 1, -0.00280905, 0.182382, -0.77293)
+light_energy = 16.0
+light_indirect_energy = 4.233
+light_volumetric_fog_energy = 3.263
+light_size = 0.424
+shadow_enabled = true
+spot_range = 189.976
+spot_angle = 35.082
+
+[node name="FloodLight3" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.90735e-06, 0, -1.90735e-06)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FloodLight3"]
+transform = Transform3D(0.950895, 0, 0.309515, 0, 15, 0, -0.309515, 0, 0.950895, 22.5, 15, 45.5)
+mesh = SubResource("CylinderMesh_yu2s5")
+skeleton = NodePath("../../FloodLight3")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="FloodLight3/MeshInstance3D"]
+transform = Transform3D(8.98224, -1.36129, 0.345001, 0.00636912, 0.222649, 0.0525147, -4.38791, -2.54848, 0.739877, -0.5, 1.022, -0.5)
+mesh = SubResource("BoxMesh_68it3")
+skeleton = NodePath("../../../FloodLight3")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="FloodLight3/MeshInstance3D/MeshInstance3D2"]
+transform = Transform3D(1, 4.46909e-07, -5.95921e-07, -4.46909e-07, 1, 4.21965e-09, 5.95921e-07, -4.21938e-09, 1, -0.00280905, 0.182382, -0.77293)
+light_energy = 16.0
+light_indirect_energy = 4.233
+light_volumetric_fog_energy = 3.263
+light_size = 0.424
+shadow_enabled = true
+spot_range = 189.976
+spot_angle = 35.082
+
+[node name="FloodLight4" type="Node3D" parent="."]
+transform = Transform3D(0.483084, 0, -0.875574, 0, 1, 0, 0.875574, 0, 0.483084, 6.45773, 0, 3.79034)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FloodLight4"]
+transform = Transform3D(1, 0, 0, 0, 15, 0, 0, 0, 1, 22.5, 15, 45.5)
+mesh = SubResource("CylinderMesh_yu2s5")
+skeleton = NodePath("../../FloodLight4")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="FloodLight4/MeshInstance3D"]
+transform = Transform3D(8.98224, -1.36129, 0.345001, 0.00636912, 0.222649, 0.0525147, -4.38791, -2.54848, 0.739877, -0.5, 1.022, -0.5)
+mesh = SubResource("BoxMesh_68it3")
+skeleton = NodePath("../../../FloodLight4")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="FloodLight4/MeshInstance3D/MeshInstance3D2"]
+transform = Transform3D(1, 4.46909e-07, -5.95921e-07, -4.46909e-07, 1, 4.21965e-09, 5.95921e-07, -4.21938e-09, 1, -0.00280905, 0.182382, -0.77293)
+light_energy = 16.0
+light_indirect_energy = 4.233
+light_volumetric_fog_energy = 3.263
+light_size = 0.424
+shadow_enabled = true
+spot_range = 189.976
+spot_angle = 35.082
