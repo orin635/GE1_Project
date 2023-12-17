@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://cvxt36dwb8clm"]
+
+[ext_resource type="PackedScene" uid="uid://cs574vn1ntiio" path="res://scenes/penguin.tscn" id="1_14ifo"]
+[ext_resource type="PackedScene" uid="uid://qt50ytkqxqvk" path="res://scenes/ball.tscn" id="1_if7w1"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lf1rp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1fab2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lroxy"]
+albedo_color = Color(0, 0.572549, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tw2sc"]
+material = SubResource("StandardMaterial3D_lroxy")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, -9.5, 0)
+physics_material_override = SubResource("PhysicsMaterial_lf1rp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_1fab2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_tw2sc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0288353, 15.755, -0.0595093)
+light_energy = 1.914
+light_indirect_energy = 1.305
+
+[node name="PenguinMainScene" parent="." instance=ExtResource("1_14ifo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174671, 0.325781, -7.47875)
+
+[node name="Ball" parent="." instance=ExtResource("1_if7w1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)

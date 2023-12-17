@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://qt50ytkqxqvk"]
+
+[ext_resource type="Script" path="res://scripts/ball.gd" id="1_34t6u"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_qlcxh"]
+friction = 0.23
+bounce = 0.21
+
+[sub_resource type="SphereMesh" id="SphereMesh_aboj1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_couxx"]
+
+[node name="Ball" type="Node3D"]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.89097, 0)
+collision_layer = 3
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_qlcxh")
+max_contacts_reported = 5
+contact_monitor = true
+script = ExtResource("1_34t6u")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D"]
+mesh = SubResource("SphereMesh_aboj1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_couxx")
