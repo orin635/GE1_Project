@@ -1,22 +1,35 @@
-[gd_scene load_steps=7 format=3 uid="uid://cvxt36dwb8clm"]
+[gd_scene load_steps=11 format=3 uid="uid://cvxt36dwb8clm"]
 
 [ext_resource type="PackedScene" uid="uid://cs574vn1ntiio" path="res://scenes/penguin.tscn" id="1_14ifo"]
 [ext_resource type="PackedScene" uid="uid://qt50ytkqxqvk" path="res://scenes/ball.tscn" id="1_if7w1"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lf1rp"]
+rough = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1fab2"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lroxy"]
+[sub_resource type="Gradient" id="Gradient_12xid"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7yvdf"]
+gradient = SubResource("Gradient_12xid")
+fill_from = Vector2(0.842105, 0.757895)
+fill_to = Vector2(0.3, 0.426316)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xyf1g"]
 albedo_color = Color(0, 0.572549, 0, 1)
+albedo_texture = SubResource("GradientTexture2D_7yvdf")
 
 [sub_resource type="BoxMesh" id="BoxMesh_tw2sc"]
-material = SubResource("StandardMaterial3D_lroxy")
+material = SubResource("StandardMaterial3D_xyf1g")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_d0hrn"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lwet4"]
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Floor" type="StaticBody3D" parent="."]
-transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, -9.5, 0)
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0.077, -24.5, 0.005)
 physics_material_override = SubResource("PhysicsMaterial_lf1rp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
@@ -26,12 +39,49 @@ shape = SubResource("BoxShape3D_1fab2")
 mesh = SubResource("BoxMesh_tw2sc")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0288353, 15.755, -0.0595093)
-light_energy = 1.914
-light_indirect_energy = 1.305
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.0288353, 27.5602, -41.9137)
+light_energy = 4.988
+light_indirect_energy = 11.81
+shadow_enabled = true
 
 [node name="PenguinMainScene" parent="." instance=ExtResource("1_14ifo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174671, 0.325781, -7.47875)
 
 [node name="Ball" parent="." instance=ExtResource("1_if7w1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+
+[node name="Wall" type="StaticBody3D" parent="."]
+transform = Transform3D(50, 0, 0, 0, 3, 0, 0, 0, 1, 0.012, 2, 24.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
+shape = SubResource("BoxShape3D_d0hrn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall"]
+mesh = SubResource("BoxMesh_lwet4")
+
+[node name="Wall2" type="StaticBody3D" parent="."]
+transform = Transform3D(50, 0, 0, 0, 3, 0, 0, 0, 1, 0, 2, -24.5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2"]
+shape = SubResource("BoxShape3D_d0hrn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2"]
+mesh = SubResource("BoxMesh_lwet4")
+
+[node name="Wall3" type="StaticBody3D" parent="."]
+transform = Transform3D(-2.18557e-06, 0, 1, 0, 3, 0, -50, 0, -4.37114e-08, -24.5, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3"]
+shape = SubResource("BoxShape3D_d0hrn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall3"]
+mesh = SubResource("BoxMesh_lwet4")
+
+[node name="Wall4" type="StaticBody3D" parent="."]
+transform = Transform3D(-2.18557e-06, 0, 1, 0, 3, 0, -50, 0, -4.37114e-08, 24.5, 2, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall4"]
+shape = SubResource("BoxShape3D_d0hrn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall4"]
+mesh = SubResource("BoxMesh_lwet4")
