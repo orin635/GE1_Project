@@ -15,6 +15,10 @@ run/main_scene="res://scenes/world.tscn"
 config/features=PackedStringArray("4.1", "Mobile")
 config/icon="res://icon.svg"
 
+[filesystem]
+
+import/fbx/enabled=false
+
 [input]
 
 move_forward={
@@ -51,7 +55,3 @@ run={
 [layer_names]
 
 3d_physics/layer_2="character"
-
-[physics]
-
-3d/run_on_separate_thread=true

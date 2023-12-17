@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cyuswl8rw3o2n"
+path="res://.godot/imported/football.obj-4b211acaec599b436e56690db2f4bdfd.mesh"
+
+[deps]
+
+files=["res://.godot/imported/football.obj-4b211acaec599b436e56690db2f4bdfd.mesh"]
+
+source_file="res://resources/football.obj"
+dest_files=["res://.godot/imported/football.obj-4b211acaec599b436e56690db2f4bdfd.mesh", "res://.godot/imported/football.obj-4b211acaec599b436e56690db2f4bdfd.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
