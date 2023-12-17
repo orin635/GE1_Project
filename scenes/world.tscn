@@ -62,7 +62,7 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174671, 0.325781, -7.47875)
 
 [node name="Ball" parent="." instance=ExtResource("1_if7w1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="Wall" type="StaticBody3D" parent="."]
 transform = Transform3D(45, 0, 0, 0, 3, 0, 0, 0, 1, 0.012, 2, 45.5)

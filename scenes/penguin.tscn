@@ -61,7 +61,7 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_w5vib")
 
 [node name="L_Wing" type="MeshInstance3D" parent="CharacterBody3D/Body"]
-transform = Transform3D(0.417813, 0.16713, 0, -0.16713, 0.417813, 0, 0, 0, 0.45, -0.4, 0, 0)
+transform = Transform3D(0.417813, 0.16713, -4.65661e-10, -0.16713, 0.417813, -6.245e-18, -2.32831e-10, 0, 0.45, -0.4, 0, 0)
 mesh = SubResource("CapsuleMesh_rtoab")
 skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_i54x7")
@@ -85,6 +85,7 @@ mesh = SubResource("BoxMesh_53uil")
 skeleton = NodePath("../R_Foot")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0524251, 0)
 shape = SubResource("CylinderShape3D_oafvg")
 
 [node name="SpringArm3D" type="SpringArm3D" parent="CharacterBody3D"]
