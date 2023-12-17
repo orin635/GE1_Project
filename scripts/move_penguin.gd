@@ -9,7 +9,7 @@ var speed = 8
 @export var acceleration = 6.0#
 @export var rotation_speed = 12.0
 @onready var spring_arm = $SpringArm3D
-
+var charge_time = 0
 
 #Animation vars
 @onready var Body = $Body
@@ -17,14 +17,13 @@ var speed = 8
 @onready var rWing = $Body/R_Wing
 @onready var lFoot = $Body/L_Foot
 @onready var rFoot = $Body/R_Foot
+@onready var arrow = $arrow
 var default_x_rotation
 var default_lfoot_origin
 var default_rfoot_origin
 var wing_rotate_direction = 1
 var foot_rotate_direction = 1
-var foot_points = 100
-var foot_step = 0
-var foot_radius = 1
+
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -49,7 +48,23 @@ func get_input(delta):
 	
 	velocity = lerp(velocity, dir * speed, acceleration * delta)
 	velocity.y = vy
+	
+	
+	if Input.is_action_just_pressed("hard_kick"):
+		charge_time = delta
+		charge_kick()
+		print("CHARGING")
+	
+	if Input.is_action_just_released("hard_kick"):
+		print("HARD KICK RELEASED")
+		release_kick()
+		
 
+func charge_kick():
+	arrow.visible = true
+
+func release_kick():
+	arrow.visible = false
 
 func _process(delta):
 	get_input(delta)
@@ -87,7 +102,8 @@ func animation(velocity, delta):
 		rWing.rotation.x = default_x_rotation
 		rFoot.rotation.x = default_x_rotation
 		lFoot.rotation.x = default_x_rotation
-
+	
+	arrow.rotation.y = lerp_angle(arrow.rotation.y, spring_arm.rotation.y, rotation_speed * delta)
 
 
 
