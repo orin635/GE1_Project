@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://c2y85jatbw43d"]
 
-[ext_resource type="ArrayMesh" uid="uid://chgcqvo6b4auy" path="res://resources/mesh/goals.res" id="1_j1wne"]
+[ext_resource type="ArrayMesh" uid="uid://ct7bg8atrl5ca" path="res://resources/mesh/goals.res" id="1_j1wne"]
 [ext_resource type="Script" path="res://scripts/Goals.gd" id="1_ry08r"]
-[ext_resource type="ArrayMesh" uid="uid://dgnberg5qw75w" path="res://resources/mesh/posts.res" id="2_a0mdn"]
+[ext_resource type="ArrayMesh" uid="uid://td1m7vwvjnx2" path="res://resources/mesh/posts.res" id="2_a0mdn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aewoy"]
 size = Vector3(1.89551, 1.94798, 0.472458)

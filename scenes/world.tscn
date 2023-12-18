@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bwqfpqeqk2hbl" path="res://scenes/grass.tscn" id="1_xok4v"]
 [ext_resource type="PackedScene" uid="uid://c2y85jatbw43d" path="res://scenes/Goals.tscn" id="2_pit7y"]
 [ext_resource type="Script" path="res://scenes/outofbounds.gd" id="3_miovg"]
-[ext_resource type="PackedScene" uid="uid://pwol6xq6ndeb" path="res://scenes/ui.tscn" id="6_q37sm"]
+[ext_resource type="PackedScene" path="res://scenes/ui.tscn" id="6_q37sm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lf1rp"]
 rough = true
