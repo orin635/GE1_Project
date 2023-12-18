@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://cvxt36dwb8clm"]
+[gd_scene load_steps=22 format=3 uid="uid://cvxt36dwb8clm"]
 
 [ext_resource type="PackedScene" uid="uid://cs574vn1ntiio" path="res://scenes/penguin.tscn" id="1_14ifo"]
 [ext_resource type="PackedScene" uid="uid://qt50ytkqxqvk" path="res://scenes/ball.tscn" id="1_if7w1"]
+[ext_resource type="Script" path="res://scenes/outofbounds.gd" id="3_miovg"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lf1rp"]
 rough = true
@@ -41,12 +42,21 @@ albedo_color = Color(0.494118, 0.494118, 0.494118, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_68it3"]
 material = SubResource("StandardMaterial3D_4vrpg")
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1dnrt"]
+
+[sub_resource type="Sky" id="Sky_ucrq0"]
+sky_material = SubResource("ProceduralSkyMaterial_1dnrt")
+
 [sub_resource type="Environment" id="Environment_tx1ea"]
+background_mode = 2
+sky = SubResource("Sky_ucrq0")
 sdfgi_enabled = true
 sdfgi_bounce_feedback = 0.72
 sdfgi_energy = 1.5
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_oktey"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fvvot"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -199,3 +209,12 @@ spot_angle = 53.7594
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_tx1ea")
 camera_attributes = SubResource("CameraAttributesPractical_oktey")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, -11.1776, 0)
+script = ExtResource("3_miovg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("WorldBoundaryShape3D_fvvot")
+
+[connection signal="body_shape_entered" from="Area3D" to="Area3D" method="_on_body_shape_entered"]
