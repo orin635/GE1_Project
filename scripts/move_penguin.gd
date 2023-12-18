@@ -11,6 +11,7 @@ var speed = 8
 @onready var spring_arm = $SpringArm3D
 var charge_time = 0
 
+# INSTANTIATING DIRT PARTICLES
 @onready var dirt_particles = $DirtParticles
 
 #Animation vars
