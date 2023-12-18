@@ -5,6 +5,7 @@ var score = 0
 
 func _ready():
 	var goal_node = get_node("/root/Node3D/Goals")
+	score_label.text = "Score : 0"
 
 func update_score():
 	score += 1

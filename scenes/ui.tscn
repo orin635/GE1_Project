@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cd8wguoj7nuqq"]
+[gd_scene load_steps=2 format=3 uid="uid://pwol6xq6ndeb"]
 
 [ext_resource type="Script" path="res://scenes/ui.gd" id="1_n2d5u"]
 
@@ -12,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
 layout_mode = 1
@@ -20,6 +21,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 32
 theme_override_constants/margin_top = 32
 theme_override_constants/margin_right = 32
