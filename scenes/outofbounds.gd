@@ -13,3 +13,5 @@ func _process(delta):
 
 func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	body.global_transform.origin = Vector3(0,5,0)
+	body.linear_velocity = Vector3.ZERO
+	body.angular_velocity = Vector3.ZERO

@@ -11,6 +11,8 @@ var speed = 8
 @onready var spring_arm = $SpringArm3D
 var charge_time = 0
 
+@onready var dirt_particles = $DirtParticles
+
 #Animation vars
 @onready var Body = $Body
 @onready var lWing = $Body/L_Wing
@@ -49,9 +51,11 @@ func get_input(delta):
 		if Input.is_action_pressed("run"):
 			speed = max_speed
 			acceleration = 9
+			dirt_particles.emitting = true
 		else:
 			speed = default_speed
 			acceleration = 6
+			dirt_particles.emitting = false
 			
 		velocity = lerp(velocity, dir * speed, acceleration * delta)
 		velocity.y = vy
@@ -81,6 +85,7 @@ func get_input(delta):
 		slide = false
 		reset_slide()
 	
+	print(velocity.length())
 	
 	
 	
@@ -115,6 +120,7 @@ func release_kick(delta):
 			hit_force = 12 * remap(charge_time,0.5,2,2,5)
 			
 		var impulse = hit_direction * hit_force
+		print(hit_force)
 		football_body.apply_central_impulse(impulse)
 	charge_time = 0.0
 	
