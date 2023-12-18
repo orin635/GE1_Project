@@ -25,7 +25,9 @@ var default_arrow_scale
 var wing_rotate_direction = 1
 var foot_rotate_direction = 1
 var football_body
-
+var slide = false
+var slide_time = 0
+var previous_z_rot
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -38,20 +40,21 @@ func _ready():
 
 
 func get_input(delta):
-	var vy = velocity.y
-	velocity.y = 0
-	var input = Input.get_vector("move_right", "move_left", "move_back", "move_forward")
-	var dir = Vector3(input.x, 0, input.y).rotated(Vector3.UP, spring_arm.rotation.y)
 	
-	if Input.is_action_pressed("run"):
-		speed = max_speed
-		acceleration = 9
-	else:
-		speed = default_speed
-		acceleration = 6
-	
-	velocity = lerp(velocity, dir * speed, acceleration * delta)
-	velocity.y = vy
+	if(slide == false):
+		var vy = velocity.y
+		velocity.y = 0
+		var input = Input.get_vector("move_right", "move_left", "move_back", "move_forward")
+		var dir = Vector3(input.x, 0, input.y).rotated(Vector3.UP, spring_arm.rotation.y)
+		if Input.is_action_pressed("run"):
+			speed = max_speed
+			acceleration = 9
+		else:
+			speed = default_speed
+			acceleration = 6
+			
+		velocity = lerp(velocity, dir * speed, acceleration * delta)
+		velocity.y = vy
 	
 	
 	if Input.is_action_pressed("hard_kick"):
@@ -60,6 +63,34 @@ func get_input(delta):
 	if Input.is_action_just_released("hard_kick"):
 		release_kick(delta)
 		
+		
+	if Input.is_action_pressed("slide"):
+		slide_time += delta
+		speed = speed * 0.95
+		
+		
+	if Input.is_action_just_pressed("slide"):
+		slide = true
+		speed = velocity.length()+3
+		previous_z_rot = Body.rotation.z
+		
+	if Input.is_action_just_released("slide"):
+		reset_slide()
+		
+	if(slide_time > 1):
+		slide = false
+		reset_slide()
+	
+	print(velocity.length())
+	
+	
+	
+	
+func reset_slide():
+	slide = false
+	Body.transform.origin.y = 0
+	Body.rotation.z = previous_z_rot
+	slide_time = 0
 
 func charge_kick(delta):
 	charge_time += delta
@@ -104,8 +135,12 @@ func _physics_process(delta):
 
 
 func animation(velocity, delta):
-	
-	if velocity.length() > 1.0:
+	if(slide == true):
+		Body.rotation.x = default_x_rotation + 1.39626
+		Body.transform.origin.y = -0.7
+		Body.rotation.z = previous_z_rot - 0.523599
+		
+	elif velocity.length() > 1.0:
 		Body.rotation.y = lerp_angle(Body.rotation.y, spring_arm.rotation.y, rotation_speed * delta)
 		if(is_on_floor()):
 			#Rotate Character forward relative to speed
@@ -129,7 +164,9 @@ func animation(velocity, delta):
 		rFoot.rotation.x = default_x_rotation
 		lFoot.rotation.x = default_x_rotation
 	
+	#Rotate Arrow
 	arrow.rotation.y = lerp_angle(arrow.rotation.y, spring_arm.rotation.y, rotation_speed * delta)
+
 
 
 
@@ -155,6 +192,8 @@ func _on_area_3d_body_entered(body):
 			#Calculate penguin speed to get force of kick
 			var penguin_speed = velocity.length()
 			var push_force = penguin_speed * 3
+			if(slide == true):
+				push_force = 60
 			var hit_force = hit_direction * push_force
 			
 			# Apply an impulse force to the ball in the calculated direction
