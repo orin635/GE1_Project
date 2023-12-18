@@ -117,9 +117,7 @@ func release_kick(delta):
 		var impulse = hit_direction * hit_force
 		football_body.apply_central_impulse(impulse)
 	charge_time = 0.0
-	
-	
-	
+
 
 func _process(delta):
 	get_input(delta)

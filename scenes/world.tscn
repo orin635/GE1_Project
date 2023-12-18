@@ -1,10 +1,11 @@
-[gd_scene load_steps=24 format=3 uid="uid://cvxt36dwb8clm"]
+[gd_scene load_steps=25 format=3 uid="uid://cvxt36dwb8clm"]
 
 [ext_resource type="PackedScene" uid="uid://cs574vn1ntiio" path="res://scenes/penguin.tscn" id="1_14ifo"]
 [ext_resource type="PackedScene" uid="uid://qt50ytkqxqvk" path="res://scenes/ball.tscn" id="1_if7w1"]
 [ext_resource type="PackedScene" uid="uid://bwqfpqeqk2hbl" path="res://scenes/grass.tscn" id="1_xok4v"]
 [ext_resource type="PackedScene" uid="uid://c2y85jatbw43d" path="res://scenes/Goals.tscn" id="2_pit7y"]
 [ext_resource type="Script" path="res://scenes/outofbounds.gd" id="3_miovg"]
+[ext_resource type="PackedScene" uid="uid://cd8wguoj7nuqq" path="res://scenes/ui.tscn" id="6_q37sm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lf1rp"]
 rough = true
@@ -212,18 +213,21 @@ spot_angle = 53.7594
 environment = SubResource("Environment_tx1ea")
 camera_attributes = SubResource("CameraAttributesPractical_oktey")
 
-[node name="Area3D" type="Area3D" parent="."]
+[node name="WorldBorder" type="Area3D" parent="."]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, -11.1776, 0)
 script = ExtResource("3_miovg")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WorldBorder"]
 shape = SubResource("WorldBoundaryShape3D_fvvot")
 
-[node name="grass" parent="." instance=ExtResource("1_xok4v")]
+[node name="Grass" parent="." instance=ExtResource("1_xok4v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.077, 0.5, 0.005)
 visible = false
 
-[node name="Node3D" parent="." instance=ExtResource("2_pit7y")]
+[node name="Goals" parent="." instance=ExtResource("2_pit7y")]
 transform = Transform3D(10, 0, 0, 0, 4, 0, 0, 0, 3, 0.433634, 4.27994, -41.7173)
 
-[connection signal="body_shape_entered" from="Area3D" to="Area3D" method="_on_body_shape_entered"]
+[node name="UI" parent="." instance=ExtResource("6_q37sm")]
+
+[connection signal="body_shape_entered" from="WorldBorder" to="WorldBorder" method="_on_body_shape_entered"]
+[connection signal="goalScored" from="Goals" to="UI" method="_on_goals_goal_scored"]
