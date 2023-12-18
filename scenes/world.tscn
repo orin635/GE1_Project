@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://cs574vn1ntiio" path="res://scenes/penguin.tscn" id="1_14ifo"]
 [ext_resource type="PackedScene" uid="uid://qt50ytkqxqvk" path="res://scenes/ball.tscn" id="1_if7w1"]
 [ext_resource type="PackedScene" uid="uid://bwqfpqeqk2hbl" path="res://scenes/grass.tscn" id="1_xok4v"]
-[ext_resource type="PackedScene" uid="uid://c2y85jatbw43d" path="res://Goals.tscn" id="2_pit7y"]
+[ext_resource type="PackedScene" uid="uid://c2y85jatbw43d" path="res://scenes/Goals.tscn" id="2_pit7y"]
 [ext_resource type="Script" path="res://scenes/outofbounds.gd" id="3_miovg"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lf1rp"]
@@ -76,12 +76,6 @@ mesh = SubResource("BoxMesh_tw2sc")
 transform = Transform3D(-0.01, 0, -4.41485e-08, 0, 0.01, 0, 4.41485e-10, 0, -0.01, 0, 0.4961, 0)
 mesh = SubResource("BoxMesh_m7ly8")
 skeleton = NodePath("")
-
-[node name="grass" parent="Floor" instance=ExtResource("1_xok4v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-
-[node name="Node3D" parent="Floor" instance=ExtResource("2_pit7y")]
-transform = Transform3D(2, 0, 0, 0, 2.5, 0, 0, 0, 0.5, 0.00792521, 0.631318, -0.460441)
 
 [node name="PenguinMainScene" parent="." instance=ExtResource("1_14ifo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174671, 0.325781, -7.47875)
@@ -224,5 +218,12 @@ script = ExtResource("3_miovg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("WorldBoundaryShape3D_fvvot")
+
+[node name="grass" parent="." instance=ExtResource("1_xok4v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.077, 0.5, 0.005)
+visible = false
+
+[node name="Node3D" parent="." instance=ExtResource("2_pit7y")]
+transform = Transform3D(10, 0, 0, 0, 4, 0, 0, 0, 3, 0.433634, 4.27994, -41.7173)
 
 [connection signal="body_shape_entered" from="Area3D" to="Area3D" method="_on_body_shape_entered"]

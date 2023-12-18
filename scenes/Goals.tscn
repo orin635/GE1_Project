@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://c2y85jatbw43d"]
+
+[ext_resource type="ArrayMesh" path="res://resources/mesh/goals.res" id="1_j1wne"]
+[ext_resource type="Script" path="res://scripts/Goals.gd" id="1_ry08r"]
+[ext_resource type="ArrayMesh" uid="uid://dgnberg5qw75w" path="res://resources/mesh/posts.res" id="2_a0mdn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_aewoy"]
+size = Vector3(1.89551, 1.94798, 0.472458)
+
+[node name="Goals" type="Node3D"]
+script = ExtResource("1_ry08r")
+
+[node name="net" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_j1wne")
+
+[node name="Area3D" type="Area3D" parent="net"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="net/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.773473)
+shape = SubResource("BoxShape3D_aewoy")
+
+[node name="posts" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_a0mdn")
+
+[connection signal="body_entered" from="net/Area3D" to="." method="_on_area_3d_body_entered"]

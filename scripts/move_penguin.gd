@@ -81,7 +81,6 @@ func get_input(delta):
 		slide = false
 		reset_slide()
 	
-	print(velocity.length())
 	
 	
 	
@@ -116,7 +115,6 @@ func release_kick(delta):
 			hit_force = 12 * remap(charge_time,0.5,2,2,5)
 			
 		var impulse = hit_direction * hit_force
-		print(hit_force)
 		football_body.apply_central_impulse(impulse)
 	charge_time = 0.0
 	
