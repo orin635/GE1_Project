@@ -21,8 +21,10 @@ var charge_time = 0
 var default_x_rotation
 var default_lfoot_origin
 var default_rfoot_origin
+var default_arrow_scale
 var wing_rotate_direction = 1
 var foot_rotate_direction = 1
+var football_body
 
 
 func _ready():
@@ -31,6 +33,8 @@ func _ready():
 	default_x_rotation = Body.rotation.x
 	default_lfoot_origin = lFoot.transform.origin
 	default_rfoot_origin = rFoot.transform.origin
+	default_arrow_scale = arrow.scale
+	
 
 
 func get_input(delta):
@@ -50,21 +54,43 @@ func get_input(delta):
 	velocity.y = vy
 	
 	
-	if Input.is_action_just_pressed("hard_kick"):
-		charge_time = delta
-		charge_kick()
-		print("CHARGING")
+	if Input.is_action_pressed("hard_kick"):
+		charge_kick(delta)
 	
 	if Input.is_action_just_released("hard_kick"):
-		print("HARD KICK RELEASED")
-		release_kick()
+		release_kick(delta)
 		
 
-func charge_kick():
+func charge_kick(delta):
+	charge_time += delta
 	arrow.visible = true
-
-func release_kick():
+	arrow.scale.z = arrow.scale.z + 0.01
+	arrow.scale.x = arrow.scale.x + 0.005
+	
+	if charge_time > 2:
+		release_kick(delta)
+		
+	
+func release_kick(delta):
 	arrow.visible = false
+	arrow.scale = default_arrow_scale
+
+	
+	if(football_body != null):
+		var x = cos(arrow.rotation.y - 1.5708)
+		var z = sin(arrow.rotation.y + 1.5708)
+		var hit_direction = Vector3(x, 0.5, z)
+		var hit_force = 12
+		if(charge_time > 0.5):
+			hit_force = 12 * remap(charge_time,0.5,2,2,5)
+			
+		var impulse = hit_direction * hit_force
+		print(hit_force)
+		football_body.apply_central_impulse(impulse)
+	charge_time = 0.0
+	
+	
+	
 
 func _process(delta):
 	get_input(delta)
@@ -121,15 +147,23 @@ func _unhandled_input(event):
 #Check prime collision area
 func _on_area_3d_body_entered(body):
 	if body is RigidBody3D:  # Check if the entered body is the ball (replace with your desired type)
-		var character_position = global_transform.origin
-		var ball_position = body.global_transform.origin
-		var hit_direction = (ball_position - character_position).normalized()
-		
-		#Calculate penguin speed to get force of kick
-		var penguin_speed = velocity.length()
-		var push_force = penguin_speed * 3
-		var hit_force = hit_direction * push_force
-		
-		
-		# Apply an impulse force to the ball in the calculated direction
-		body.apply_central_impulse(hit_force)
+		if(charge_time == 0):
+			var character_position = global_transform.origin
+			var ball_position = body.global_transform.origin
+			var hit_direction = (ball_position - character_position).normalized()
+			
+			#Calculate penguin speed to get force of kick
+			var penguin_speed = velocity.length()
+			var push_force = penguin_speed * 3
+			var hit_force = hit_direction * push_force
+			
+			# Apply an impulse force to the ball in the calculated direction
+			body.apply_central_impulse(hit_force)
+			
+		football_body = body
+
+
+
+func _on_front_collision_detection_body_exited(body):
+	if body is RigidBody3D:
+		football_body = null
