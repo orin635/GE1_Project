@@ -8,3 +8,4 @@ func _on_area_3d_body_entered(body):
 		body.linear_velocity = Vector3.ZERO
 		body.angular_velocity = Vector3.ZERO
 		emit_signal("goalScored")
+
