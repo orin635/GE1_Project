@@ -1,14 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2y85jatbw43d"]
+[gd_scene load_steps=4 format=3 uid="uid://bc5p751ungxlh"]
 
-[ext_resource type="ArrayMesh" uid="uid://ct7bg8atrl5ca" path="res://resources/mesh/goals.res" id="1_j1wne"]
-[ext_resource type="Script" path="res://scripts/Goals.gd" id="1_ry08r"]
-[ext_resource type="ArrayMesh" uid="uid://td1m7vwvjnx2" path="res://resources/mesh/posts.res" id="2_a0mdn"]
-[ext_resource type="AudioStream" uid="uid://cbekraej6pcdb" path="res://resources/sound/Alia intro meme.mp3" id="4_bv131"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5f5dr"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5ysdy"]
 albedo_color = Color(0.388235, 0.803922, 0.0509804, 1)
 
-[sub_resource type="FontFile" id="FontFile_f70d6"]
+[sub_resource type="FontFile" id="FontFile_8wmpj"]
 face_index = null
 embolden = null
 transform = null
@@ -607,37 +602,19 @@ cache/0/37/0/kerning_overrides/35/0 = Vector2(0, 0)
 cache/0/37/0/kerning_overrides/36/0 = Vector2(0, 0)
 cache/0/37/0/kerning_overrides/37/0 = Vector2(0, 0)
 
-[sub_resource type="TextMesh" id="TextMesh_ayps3"]
+[sub_resource type="TextMesh" id="TextMesh_hob76"]
 text = "GOAL!!!"
-font = SubResource("FontFile_f70d6")
+font = SubResource("FontFile_8wmpj")
 font_size = 37
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_aewoy"]
-size = Vector3(1.89551, 1.94798, 0.472458)
+[node name="GoalScored" type="Node3D"]
 
-[node name="Goals" type="Node3D"]
-script = ExtResource("1_ry08r")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_5ysdy")
+mesh = SubResource("TextMesh_hob76")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.104211, 6.51149, 0.990177)
-visible = false
-material_override = SubResource("StandardMaterial3D_5f5dr")
-mesh = SubResource("TextMesh_ayps3")
-skeleton = NodePath("")
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.499035, 0.738921, 0.791329)
 
-[node name="net" type="MeshInstance3D" parent="."]
-mesh = ExtResource("1_j1wne")
-
-[node name="Area3D" type="Area3D" parent="net"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="net/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.773473)
-shape = SubResource("BoxShape3D_aewoy")
-
-[node name="posts" type="MeshInstance3D" parent="."]
-mesh = ExtResource("2_a0mdn")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_bv131")
-
-[connection signal="body_entered" from="net/Area3D" to="." method="_on_area_3d_body_entered"]
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.262306, 1.48524)

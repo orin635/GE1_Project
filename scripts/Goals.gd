@@ -3,6 +3,7 @@ extends Node3D
 signal goalScored
 
 var goalSoundPlayer: AudioStreamPlayer
+var goalScoredMesh: MeshInstance3D
 var stayTime: float = 3.0    # Time to stay at the same volume in seconds
 var fadeOutTime: float = 3.0  # Time to fade the sound out in seconds
 var timer: float = 0.0
@@ -10,6 +11,7 @@ var timer: float = 0.0
 func _ready():
 	# Assume that goalSoundPlayer is a child node of this node or set it manually
 	goalSoundPlayer = $AudioStreamPlayer
+	goalScoredMesh = $MeshInstance3D2
 
 func _on_area_3d_body_entered(body):
 	if body is RigidBody3D:
@@ -17,6 +19,7 @@ func _on_area_3d_body_entered(body):
 		body.linear_velocity = Vector3.ZERO
 		body.angular_velocity = Vector3.ZERO
 		emit_signal("goalScored")
+		goalScoredMesh.visible = true
 		goalSoundPlayer.play()
 		timer = 0.0
 
@@ -30,6 +33,7 @@ func _process(delta):
 	else:
 		# Stop playing after the entire sequence
 		goalSoundPlayer.stop()
+		goalScoredMesh.visible = false
 
 	timer += delta
 
