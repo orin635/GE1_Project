@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dr3iljs78lwmy"
-path.s3tc="res://.godot/imported/dirt_03.png-4aca09e9c67efd5c5dcbe2937b720b40.s3tc.ctex"
+uid="uid://q8rhdhxa07tr"
+path.s3tc="res://.godot/imported/smoke_09.png-5fbb88dd2001f26814c8f8a8fd6c7711.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://resources/Particles/dirt_03.png"
-dest_files=["res://.godot/imported/dirt_03.png-4aca09e9c67efd5c5dcbe2937b720b40.s3tc.ctex"]
+source_file="res://resources/Particles/smoke_09.png"
+dest_files=["res://.godot/imported/smoke_09.png-5fbb88dd2001f26814c8f8a8fd6c7711.s3tc.ctex"]
 
 [params]
 

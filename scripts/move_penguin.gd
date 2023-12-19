@@ -15,12 +15,18 @@ var stamina = 300
 var stamina_cooldown = false
 var stamina_cooldown_value = 100
 
+
 #Signals
 signal stamina_update(stamina)
 
+# INSTANTIATING DIRT PARTICLES
+@onready var grass_particles = $GrassParticles
+@onready var smoke_particles = $SmokeParticles
+@onready var dirt_particles = $Body/DirtParticles
+var smoke_particle_timer = 0
+var run_smoke_particle = false
+var run_grass_particle = false
 
-#Particles
-@onready var dirt_particles = $DirtParticles
 
 #Animation vars
 @onready var Body = $Body
@@ -52,7 +58,6 @@ func _ready():
 	
 
 func get_input(delta):
-	
 	if(slide == false):
 		var vy = velocity.y
 		velocity.y = 0
@@ -61,25 +66,36 @@ func get_input(delta):
 		if Input.is_action_pressed("run") and stamina > 0 and stamina_cooldown == false:
 			speed = max_speed
 			acceleration = 9
-			dirt_particles.emitting = true
-			stamina = stamina - 1
+      stamina = stamina - 1
+			if is_on_floor():
+				run_grass_particle = true
+			else:
+				run_grass_particle = false
 		else:
 			speed = default_speed
 			acceleration = 6
-			dirt_particles.emitting = false
-			if stamina < max_stamina:
+			run_grass_particle = true
+      if stamina < max_stamina:
 				stamina = stamina + 1
+        
 		if(stamina <= 0):
 			stamina_cooldown = true
 		if(stamina > stamina_cooldown_value):
 			stamina_cooldown = false
 		if(stamina<max_stamina):
 			emit_signal("stamina_update", stamina)
-			
+      
 		velocity = lerp(velocity, dir * speed, acceleration * delta)
 		velocity.y = vy
-	print(stamina)
+		
+		if Input.is_action_just_pressed("jump"):
+			run_smoke_particle = true
 	
+  
+  
+  
+  
+  
 	if Input.is_action_pressed("hard_kick"):
 		charge_kick(delta)
 	
@@ -92,10 +108,12 @@ func get_input(delta):
 		speed = speed * 0.95
 		
 		
+		
 	if Input.is_action_just_pressed("slide"):
 		slide = true
 		speed = velocity.length()+3
 		previous_z_rot = Body.rotation.z
+		
 		
 	if Input.is_action_just_released("slide"):
 		reset_slide()
@@ -112,6 +130,7 @@ func reset_slide():
 	Body.transform.origin.y = 0
 	Body.rotation.z = previous_z_rot
 	slide_time = 0
+	dirt_particles.emitting = false
 
 func charge_kick(delta):
 	charge_time += delta
@@ -140,10 +159,33 @@ func release_kick(delta):
 		football_body.apply_central_impulse(impulse)
 	charge_time = 0.0
 
+func run_particles(delta):
+	#Check for slide particles
+	if slide:
+		dirt_particles.emitting = true
+	else:
+		dirt_particles.emitting = false
+	
+	#Run smoke particles on timer if jump
+	if run_smoke_particle == true and smoke_particle_timer < 0.2:
+		smoke_particles.emitting = true
+		smoke_particle_timer += delta
+	else:
+		smoke_particles.emitting = false
+		run_smoke_particle = false
+		smoke_particle_timer = 0
+	
+	#Check for grass particles
+	if run_grass_particle == true:
+		grass_particles.emitting = true
+	else:
+		grass_particles.emitting = false
+
 
 func _process(delta):
 	get_input(delta)
 	animation(velocity, delta)
+	run_particles(delta)
 
 
 func _physics_process(delta):

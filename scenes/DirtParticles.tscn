@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://opvup3vuph3w"]
+[gd_scene load_steps=7 format=3 uid="uid://hs6ft710o3rb"]
 
 [ext_resource type="Texture2D" uid="uid://cvfb81qxv6liu" path="res://resources/Particles/dirt_01.png" id="1_tmahk"]
 
@@ -26,7 +26,7 @@ color = Color(0.331167, 0.253495, 0.23199, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_r7wyy"]
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D2" type="Node3D"]
 
 [node name="DirtParticles" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_p78u7")
