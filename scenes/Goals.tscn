@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/Goals.gd" id="1_ry08r"]
 [ext_resource type="ArrayMesh" uid="uid://td1m7vwvjnx2" path="res://resources/mesh/posts.res" id="2_a0mdn"]
 [ext_resource type="AudioStream" uid="uid://cbekraej6pcdb" path="res://resources/sound/Alia intro meme.mp3" id="4_bv131"]
-[ext_resource type="Texture2D" uid="uid://wh5jwuu4e0up" path="res://resources/Particles/spark_02.png" id="5_s024y"]
+[ext_resource type="Texture2D" path="res://resources/Particles/spark_02.png" id="5_s024y"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5f5dr"]
 albedo_color = Color(0.388235, 0.803922, 0.0509804, 1)
