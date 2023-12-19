@@ -11,6 +11,9 @@ var speed = 8
 @onready var spring_arm = $SpringArm3D
 var charge_time = 0
 
+# INSTANTIATING DIRT PARTICLES
+@onready var grass_particles = $GrassParticles
+@onready var smoke_particles = $SmokeParticles
 @onready var dirt_particles = $DirtParticles
 
 #Animation vars
@@ -51,15 +54,22 @@ func get_input(delta):
 		if Input.is_action_pressed("run"):
 			speed = max_speed
 			acceleration = 9
-			dirt_particles.emitting = true
+			if is_on_floor():
+				grass_particles.emitting = true
+			else:
+				grass_particles.emitting = false
 		else:
 			speed = default_speed
 			acceleration = 6
-			dirt_particles.emitting = false
+			grass_particles.emitting = false
 			
 		velocity = lerp(velocity, dir * speed, acceleration * delta)
 		velocity.y = vy
-	
+		
+		if Input.is_action_pressed("jump"):
+			smoke_particles.emitting = true
+		else:
+			smoke_particles.emitting = false
 	
 	if Input.is_action_pressed("hard_kick"):
 		charge_kick(delta)
@@ -73,10 +83,12 @@ func get_input(delta):
 		speed = speed * 0.95
 		
 		
+		
 	if Input.is_action_just_pressed("slide"):
 		slide = true
 		speed = velocity.length()+3
 		previous_z_rot = Body.rotation.z
+		
 		
 	if Input.is_action_just_released("slide"):
 		reset_slide()
@@ -95,6 +107,7 @@ func reset_slide():
 	Body.transform.origin.y = 0
 	Body.rotation.z = previous_z_rot
 	slide_time = 0
+	dirt_particles.emitting = false
 
 func charge_kick(delta):
 	charge_time += delta
@@ -128,6 +141,10 @@ func release_kick(delta):
 func _process(delta):
 	get_input(delta)
 	animation(velocity, delta)
+	if slide:
+		dirt_particles.emitting = true
+	else:
+		dirt_particles.emitting = false
 
 
 func _physics_process(delta):
