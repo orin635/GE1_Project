@@ -144,11 +144,9 @@ func run_particles(delta):
 	
 	#Run smoke particles on timer if jump
 	if run_smoke_particle == true and smoke_particle_timer < 0.2:
-		print("run particle " + str(smoke_particle_timer))
 		smoke_particles.emitting = true
 		smoke_particle_timer += delta
 	else:
-		print("reset")
 		smoke_particles.emitting = false
 		run_smoke_particle = false
 		smoke_particle_timer = 0
