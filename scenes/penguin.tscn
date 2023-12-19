@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cs574vn1ntiio"]
+[gd_scene load_steps=30 format=3 uid="uid://cs574vn1ntiio"]
 
 [ext_resource type="Script" path="res://scripts/move_penguin.gd" id="1_qs3la"]
 [ext_resource type="Texture2D" uid="uid://dr3iljs78lwmy" path="res://resources/Particles/dirt_03.png" id="2_uakuh"]
@@ -8,11 +8,11 @@
 [ext_resource type="AudioStream" uid="uid://dsh7wp8m8cbsu" path="res://resources/sound/jump_sound.wav" id="6_hepnu"]
 [ext_resource type="AudioStream" uid="uid://3sytpfkfxamy" path="res://resources/sound/waking-in-grass.mp3" id="7_jahns"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mfmy"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aulwd"]
 albedo_color = Color(0.160784, 0.247059, 0.705882, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_rflcv"]
-material = SubResource("StandardMaterial3D_7mfmy")
+material = SubResource("StandardMaterial3D_aulwd")
 
 [sub_resource type="SphereMesh" id="SphereMesh_vaalo"]
 
@@ -58,6 +58,8 @@ color = Color(0.331167, 0.253495, 0.23199, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_icg73"]
 size = Vector3(1.15197, 0.453404, 1.1799)
+
+[sub_resource type="BoxMesh" id="BoxMesh_epja8"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_elutl"]
 
@@ -169,6 +171,11 @@ transform = Transform3D(1, -2.03177e-18, 0, 0, 1, 7.10543e-15, 0, -7.10565e-15, 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D/FrontCollisionDetection"]
 transform = Transform3D(1, 1.98523e-23, 0, 0, 1, 0, 0, 2.5411e-21, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_icg73")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/FrontCollisionDetection"]
+transform = Transform3D(1.1526, 1.65436e-24, -9.31323e-10, -6.61744e-24, 0.443218, 2.5411e-21, 4.65661e-09, 0, 1.16711, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_epja8")
 
 [node name="arrow" type="Node3D" parent="CharacterBody3D"]
 transform = Transform3D(-0.999967, 0, -0.00809819, 0, 1, 0, 0.00809819, 0, -0.999967, -0.0022743, -1.23701, -0.280831)
