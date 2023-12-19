@@ -14,7 +14,16 @@ var charge_time = 0
 var stamina = 300
 var stamina_cooldown = false
 var stamina_cooldown_value = 100
+var allow_run = true
+var was_in_air = false
+var was_walking = false
 
+#soundeffects
+@onready var small_kick = $small_kick
+@onready var hard_kick = $hard_kick
+@onready var running_sound = $running
+@onready var jump_sound = $jump
+@onready var walk_sound = $walk
 
 #Signals
 signal stamina_update(stamina)
@@ -63,40 +72,74 @@ func get_input(delta):
 		velocity.y = 0
 		var input = Input.get_vector("move_right", "move_left", "move_back", "move_forward")
 		var dir = Vector3(input.x, 0, input.y).rotated(Vector3.UP, spring_arm.rotation.y)
-		if Input.is_action_pressed("run") and stamina > 0 and stamina_cooldown == false:
+		
+		if Input.is_action_pressed("run") and stamina > 0 and stamina_cooldown == false and allow_run == true:
 			speed = max_speed
 			acceleration = 9
 			stamina = stamina - 1
+			was_walking = false
+			#check if you are on the ground
 			if is_on_floor():
 				run_grass_particle = true
+				#check if you just landed
+				if(was_in_air == true):
+					print("landed from sprint")
+					walk_sound.stop()
+					running_sound.play()
+					was_in_air = false
+			
+			#in the air
 			else:
 				run_grass_particle = false
+				running_sound.stop()
+				was_in_air = true
+				
+		#If you are walking
 		else:
 			speed = default_speed
 			acceleration = 6
-			run_grass_particle = true
+			#If you are on the ground
+			if is_on_floor():
+				run_grass_particle = true
+				if(was_in_air == true):
+					was_walking = false
+					was_in_air = false
 			
-			if stamina < max_stamina:
-				stamina = stamina + 1
+				if velocity.length() > 0 and was_walking == false:
+					walk_sound.play()
+					was_walking = true
+				if stamina < max_stamina:
+					stamina = stamina + 1
+			else:
+				was_in_air = true
 		
 		if(stamina <= 0):
 			stamina_cooldown = true
+			allow_run = false
+			running_sound.stop()
 		if(stamina > stamina_cooldown_value):
 			stamina_cooldown = false
 		if(stamina<max_stamina):
 			emit_signal("stamina_update", stamina)
 			
-		print(stamina)
 		velocity = lerp(velocity, dir * speed, acceleration * delta)
 		velocity.y = vy
-		
-		if Input.is_action_just_pressed("jump"):
+	
+	if(velocity.length() <= 1 or is_on_floor() == false):
+		walk_sound.stop()
+		was_walking = false
+	
+	if Input.is_action_just_pressed("run"):
+		running_sound.play()
+		walk_sound.stop()
+	if Input.is_action_just_released("run"):
+		allow_run = true
+		running_sound.stop()
+
+	
+	if Input.is_action_just_pressed("jump"):
 			run_smoke_particle = true
 	
-  
-  
-  
-  
   
 	if Input.is_action_pressed("hard_kick"):
 		charge_kick(delta)
@@ -108,7 +151,6 @@ func get_input(delta):
 	if Input.is_action_pressed("slide"):
 		slide_time += delta
 		speed = speed * 0.95
-		
 		
 		
 	if Input.is_action_just_pressed("slide"):
@@ -158,6 +200,7 @@ func release_kick(delta):
 			hit_force = 12 * remap(charge_time,0.5,2,2,5)
 			
 		var impulse = hit_direction * hit_force
+		hard_kick.play()
 		football_body.apply_central_impulse(impulse)
 	charge_time = 0.0
 
@@ -239,6 +282,7 @@ func _unhandled_input(event):
 		spring_arm.rotation.y -= event.relative.x * mouse_sensitivity
 	if event.is_action_pressed("jump") and is_on_floor():
 		velocity.y = jump_speed
+		jump_sound.play()
 
 
 
@@ -260,6 +304,7 @@ func _on_area_3d_body_entered(body):
 			
 			# Apply an impulse force to the ball in the calculated direction
 			body.apply_central_impulse(hit_force)
+			small_kick.play()
 			
 		football_body = body
 
