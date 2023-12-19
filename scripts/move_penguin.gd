@@ -6,11 +6,20 @@ var speed = 8
 @export var jump_speed = 8.0 
 @export var max_speed = 16
 @export var mouse_sensitivity = 0.002 
-@export var acceleration = 6.0#
+@export var acceleration = 6.0
+@export var max_stamina = 300
 @export var rotation_speed = 12.0
 @onready var spring_arm = $SpringArm3D
 var charge_time = 0
+var stamina = 300
+var stamina_cooldown = false
+var stamina_cooldown_value = 100
 
+#Signals
+signal stamina_update(stamina)
+
+
+#Particles
 @onready var dirt_particles = $DirtParticles
 
 #Animation vars
@@ -31,6 +40,8 @@ var slide = false
 var slide_time = 0
 var previous_z_rot
 
+
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	gravity = gravity * 1.8
@@ -40,7 +51,6 @@ func _ready():
 	default_arrow_scale = arrow.scale
 	
 
-
 func get_input(delta):
 	
 	if(slide == false):
@@ -48,18 +58,27 @@ func get_input(delta):
 		velocity.y = 0
 		var input = Input.get_vector("move_right", "move_left", "move_back", "move_forward")
 		var dir = Vector3(input.x, 0, input.y).rotated(Vector3.UP, spring_arm.rotation.y)
-		if Input.is_action_pressed("run"):
+		if Input.is_action_pressed("run") and stamina > 0 and stamina_cooldown == false:
 			speed = max_speed
 			acceleration = 9
 			dirt_particles.emitting = true
+			stamina = stamina - 1
 		else:
 			speed = default_speed
 			acceleration = 6
 			dirt_particles.emitting = false
+			if stamina < max_stamina:
+				stamina = stamina + 1
+		if(stamina <= 0):
+			stamina_cooldown = true
+		if(stamina > stamina_cooldown_value):
+			stamina_cooldown = false
+		if(stamina<max_stamina):
+			emit_signal("stamina_update", stamina)
 			
 		velocity = lerp(velocity, dir * speed, acceleration * delta)
 		velocity.y = vy
-	
+	print(stamina)
 	
 	if Input.is_action_pressed("hard_kick"):
 		charge_kick(delta)
@@ -84,8 +103,6 @@ func get_input(delta):
 	if(slide_time > 1):
 		slide = false
 		reset_slide()
-	
-	print(velocity.length())
 	
 	
 	
@@ -120,7 +137,6 @@ func release_kick(delta):
 			hit_force = 12 * remap(charge_time,0.5,2,2,5)
 			
 		var impulse = hit_direction * hit_force
-		print(hit_force)
 		football_body.apply_central_impulse(impulse)
 	charge_time = 0.0
 

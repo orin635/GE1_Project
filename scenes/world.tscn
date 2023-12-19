@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bwqfpqeqk2hbl" path="res://scenes/grass.tscn" id="1_xok4v"]
 [ext_resource type="PackedScene" uid="uid://c2y85jatbw43d" path="res://scenes/Goals.tscn" id="2_pit7y"]
 [ext_resource type="Script" path="res://scenes/outofbounds.gd" id="3_miovg"]
-[ext_resource type="PackedScene" path="res://scenes/ui.tscn" id="6_q37sm"]
+[ext_resource type="PackedScene" uid="uid://pwol6xq6ndeb" path="res://scenes/ui.tscn" id="6_q37sm"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lf1rp"]
 rough = true
@@ -229,5 +229,8 @@ transform = Transform3D(10, 0, 0, 0, 4, 0, 0, 0, 3, 0.433634, 4.27994, -41.7173)
 
 [node name="UI" parent="." instance=ExtResource("6_q37sm")]
 
+[connection signal="stamina_update" from="PenguinMainScene/CharacterBody3D" to="UI" method="_on_character_body_3d_stamina_update"]
 [connection signal="body_shape_entered" from="WorldBorder" to="WorldBorder" method="_on_body_shape_entered"]
 [connection signal="goalScored" from="Goals" to="UI" method="_on_goals_goal_scored"]
+
+[editable path="PenguinMainScene"]
