@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @onready var score_label = $Control/MarginContainer/Score
+@onready var stamina_bar = $Control/MarginContainer2/ProgressBar
 var score = 0
 
 func _ready():
@@ -16,3 +17,7 @@ func update_score():
 func _on_goals_goal_scored():
 	print("SCORE!!!!")
 	update_score()
+
+
+func _on_character_body_3d_stamina_update(stamina):
+	stamina_bar.value = stamina

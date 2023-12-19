@@ -231,3 +231,5 @@ transform = Transform3D(10, 0, 0, 0, 4, 0, 0, 0, 3, 0.433634, 4.27994, -41.7173)
 
 [connection signal="body_shape_entered" from="WorldBorder" to="WorldBorder" method="_on_body_shape_entered"]
 [connection signal="goalScored" from="Goals" to="UI" method="_on_goals_goal_scored"]
+
+[editable path="PenguinMainScene"]

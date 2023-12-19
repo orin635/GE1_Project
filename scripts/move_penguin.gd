@@ -6,10 +6,18 @@ var speed = 8
 @export var jump_speed = 8.0 
 @export var max_speed = 16
 @export var mouse_sensitivity = 0.002 
-@export var acceleration = 6.0#
+@export var acceleration = 6.0
+@export var max_stamina = 300
 @export var rotation_speed = 12.0
 @onready var spring_arm = $SpringArm3D
 var charge_time = 0
+var stamina = 300
+var stamina_cooldown = false
+var stamina_cooldown_value = 100
+
+
+#Signals
+signal stamina_update(stamina)
 
 # INSTANTIATING DIRT PARTICLES
 @onready var grass_particles = $GrassParticles
@@ -18,6 +26,7 @@ var charge_time = 0
 var smoke_particle_timer = 0
 var run_smoke_particle = false
 var run_grass_particle = false
+
 
 #Animation vars
 @onready var Body = $Body
@@ -37,6 +46,8 @@ var slide = false
 var slide_time = 0
 var previous_z_rot
 
+
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	gravity = gravity * 1.8
@@ -46,16 +57,16 @@ func _ready():
 	default_arrow_scale = arrow.scale
 	
 
-
 func get_input(delta):
 	if(slide == false):
 		var vy = velocity.y
 		velocity.y = 0
 		var input = Input.get_vector("move_right", "move_left", "move_back", "move_forward")
 		var dir = Vector3(input.x, 0, input.y).rotated(Vector3.UP, spring_arm.rotation.y)
-		if Input.is_action_pressed("run"):
+		if Input.is_action_pressed("run") and stamina > 0 and stamina_cooldown == false:
 			speed = max_speed
 			acceleration = 9
+      stamina = stamina - 1
 			if is_on_floor():
 				run_grass_particle = true
 			else:
@@ -64,14 +75,27 @@ func get_input(delta):
 			speed = default_speed
 			acceleration = 6
 			run_grass_particle = true
-			
+      if stamina < max_stamina:
+				stamina = stamina + 1
+        
+		if(stamina <= 0):
+			stamina_cooldown = true
+		if(stamina > stamina_cooldown_value):
+			stamina_cooldown = false
+		if(stamina<max_stamina):
+			emit_signal("stamina_update", stamina)
+      
 		velocity = lerp(velocity, dir * speed, acceleration * delta)
 		velocity.y = vy
 		
 		if Input.is_action_just_pressed("jump"):
 			run_smoke_particle = true
-
 	
+  
+  
+  
+  
+  
 	if Input.is_action_pressed("hard_kick"):
 		charge_kick(delta)
 	
