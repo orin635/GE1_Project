@@ -66,7 +66,7 @@ func get_input(delta):
 		if Input.is_action_pressed("run") and stamina > 0 and stamina_cooldown == false:
 			speed = max_speed
 			acceleration = 9
-      stamina = stamina - 1
+			stamina = stamina - 1
 			if is_on_floor():
 				run_grass_particle = true
 			else:
@@ -75,16 +75,18 @@ func get_input(delta):
 			speed = default_speed
 			acceleration = 6
 			run_grass_particle = true
-      if stamina < max_stamina:
+			
+			if stamina < max_stamina:
 				stamina = stamina + 1
-        
+		
 		if(stamina <= 0):
 			stamina_cooldown = true
 		if(stamina > stamina_cooldown_value):
 			stamina_cooldown = false
 		if(stamina<max_stamina):
 			emit_signal("stamina_update", stamina)
-      
+			
+		print(stamina)
 		velocity = lerp(velocity, dir * speed, acceleration * delta)
 		velocity.y = vy
 		
