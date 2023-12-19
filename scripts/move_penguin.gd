@@ -15,6 +15,9 @@ var charge_time = 0
 @onready var grass_particles = $GrassParticles
 @onready var smoke_particles = $SmokeParticles
 @onready var dirt_particles = $DirtParticles
+var smoke_particle_timer = 0
+var run_smoke_particle = false
+var run_grass_particle = false
 
 #Animation vars
 @onready var Body = $Body
@@ -45,7 +48,6 @@ func _ready():
 
 
 func get_input(delta):
-	
 	if(slide == false):
 		var vy = velocity.y
 		velocity.y = 0
@@ -55,21 +57,20 @@ func get_input(delta):
 			speed = max_speed
 			acceleration = 9
 			if is_on_floor():
-				grass_particles.emitting = true
+				run_grass_particle = true
 			else:
-				grass_particles.emitting = false
+				run_grass_particle = false
 		else:
 			speed = default_speed
 			acceleration = 6
-			grass_particles.emitting = false
+			run_grass_particle = true
 			
 		velocity = lerp(velocity, dir * speed, acceleration * delta)
 		velocity.y = vy
 		
-		if Input.is_action_pressed("jump"):
-			smoke_particles.emitting = true
-		else:
-			smoke_particles.emitting = false
+		if Input.is_action_just_pressed("jump"):
+			run_smoke_particle = true
+
 	
 	if Input.is_action_pressed("hard_kick"):
 		charge_kick(delta)
@@ -96,8 +97,6 @@ func get_input(delta):
 	if(slide_time > 1):
 		slide = false
 		reset_slide()
-	
-	print(velocity.length())
 	
 	
 	
@@ -133,18 +132,38 @@ func release_kick(delta):
 			hit_force = 12 * remap(charge_time,0.5,2,2,5)
 			
 		var impulse = hit_direction * hit_force
-		print(hit_force)
 		football_body.apply_central_impulse(impulse)
 	charge_time = 0.0
+
+func run_particles(delta):
+	#Check for slide particles
+	if slide:
+		dirt_particles.emitting = true
+	else:
+		dirt_particles.emitting = false
+	
+	#Run smoke particles on timer if jump
+	if run_smoke_particle == true and smoke_particle_timer < 0.2:
+		print("run particle " + str(smoke_particle_timer))
+		smoke_particles.emitting = true
+		smoke_particle_timer += delta
+	else:
+		print("reset")
+		smoke_particles.emitting = false
+		run_smoke_particle = false
+		smoke_particle_timer = 0
+	
+	#Check for grass particles
+	if run_grass_particle == true:
+		grass_particles.emitting = true
+	else:
+		grass_particles.emitting = false
 
 
 func _process(delta):
 	get_input(delta)
 	animation(velocity, delta)
-	if slide:
-		dirt_particles.emitting = true
-	else:
-		dirt_particles.emitting = false
+	run_particles(delta)
 
 
 func _physics_process(delta):
