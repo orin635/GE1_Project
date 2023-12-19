@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c2y85jatbw43d"]
+[gd_scene load_steps=6 format=3 uid="uid://c2y85jatbw43d"]
 
 [ext_resource type="ArrayMesh" uid="uid://ct7bg8atrl5ca" path="res://resources/mesh/goals.res" id="1_j1wne"]
 [ext_resource type="Script" path="res://scripts/Goals.gd" id="1_ry08r"]
 [ext_resource type="ArrayMesh" uid="uid://td1m7vwvjnx2" path="res://resources/mesh/posts.res" id="2_a0mdn"]
+[ext_resource type="AudioStream" uid="uid://cbekraej6pcdb" path="res://resources/sound/Alia intro meme.mp3" id="4_bv131"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_aewoy"]
 size = Vector3(1.89551, 1.94798, 0.472458)
@@ -21,5 +22,8 @@ shape = SubResource("BoxShape3D_aewoy")
 
 [node name="posts" type="MeshInstance3D" parent="."]
 mesh = ExtResource("2_a0mdn")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_bv131")
 
 [connection signal="body_entered" from="net/Area3D" to="." method="_on_area_3d_body_entered"]
