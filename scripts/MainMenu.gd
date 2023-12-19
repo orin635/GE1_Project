@@ -1,14 +1,20 @@
 extends Control
 
+var audio_player : AudioStreamPlayer2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	audio_player = $AudioStreamPlayer2D
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	if Input.is_action_just_pressed("jump"):
+		var new_audio_stream : AudioStream = preload("res://resources/epicbackgroundmusic.mp3")
+	# Set the new audio stream
+		audio_player.stream = new_audio_stream
+		# Play the new audio stream
+		audio_player.play()
 
 
 

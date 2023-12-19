@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c54axokb4t1qb"]
+[gd_scene load_steps=4 format=3 uid="uid://c54axokb4t1qb"]
 
 [ext_resource type="Script" path="res://scripts/MainMenu.gd" id="1_3l4v8"]
 [ext_resource type="Texture2D" uid="uid://cp5r1pgrx1evv" path="res://resources/homescreen.png" id="2_drmvj"]
+[ext_resource type="AudioStream" uid="uid://pk7mq0ig0cpq" path="res://resources/mainmenu_backgroundmusic.mp3" id="3_aerx8"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -54,6 +55,10 @@ text = "OPTIONS
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "EXIT"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_aerx8")
+autoplay = true
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/playButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/optionButton" to="." method="_on_option_button_pressed"]

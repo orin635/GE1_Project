@@ -1,36 +1,36 @@
-[gd_scene load_steps=25 format=3 uid="uid://cvxt36dwb8clm"]
+[gd_scene load_steps=35 format=3 uid="uid://cvxt36dwb8clm"]
 
 [ext_resource type="PackedScene" uid="uid://cs574vn1ntiio" path="res://scenes/penguin.tscn" id="1_14ifo"]
 [ext_resource type="PackedScene" uid="uid://qt50ytkqxqvk" path="res://scenes/ball.tscn" id="1_if7w1"]
 [ext_resource type="PackedScene" uid="uid://bwqfpqeqk2hbl" path="res://scenes/grass.tscn" id="1_xok4v"]
 [ext_resource type="PackedScene" uid="uid://c2y85jatbw43d" path="res://scenes/Goals.tscn" id="2_pit7y"]
-[ext_resource type="Script" path="res://scenes/outofbounds.gd" id="3_miovg"]
+[ext_resource type="Script" path="res://scripts/outofbounds.gd" id="3_uca5e"]
 [ext_resource type="PackedScene" uid="uid://pwol6xq6ndeb" path="res://scenes/ui.tscn" id="6_q37sm"]
+[ext_resource type="ArrayMesh" uid="uid://v38luhixufux" path="res://resources/background/StadiumSits3.obj" id="7_j21wo"]
+[ext_resource type="ArrayMesh" uid="uid://b2yq3c84wm7ly" path="res://resources/background/Iceberg1.obj" id="8_6itug"]
+[ext_resource type="ArrayMesh" uid="uid://4hwkq6u4bus4" path="res://resources/background/Iceberg2.obj" id="9_blnra"]
+[ext_resource type="AudioStream" uid="uid://c7pmcmqfh5w7e" path="res://resources/gamebackgroundmusic.mp3" id="10_n8pce"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lf1rp"]
 rough = true
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1fab2"]
 
-[sub_resource type="Gradient" id="Gradient_12xid"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_7yvdf"]
-gradient = SubResource("Gradient_12xid")
-fill_from = Vector2(0.842105, 0.757895)
-fill_to = Vector2(0.3, 0.426316)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xyf1g"]
-albedo_color = Color(0, 0.572549, 0, 1)
-albedo_texture = SubResource("GradientTexture2D_7yvdf")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bi5px"]
+albedo_color = Color(0.0627451, 0.521569, 0, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_tw2sc"]
-material = SubResource("StandardMaterial3D_xyf1g")
+material = SubResource("StandardMaterial3D_bi5px")
 
 [sub_resource type="BoxMesh" id="BoxMesh_m7ly8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_d0hrn"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ccrrg"]
+albedo_color = Color(1, 0.537255, 0.192157, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_lwet4"]
+material = SubResource("StandardMaterial3D_ccrrg")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_53ymm"]
 albedo_color = Color(0.454902, 0.454902, 0.454902, 1)
@@ -39,11 +39,11 @@ metallic = 0.23
 [sub_resource type="CylinderMesh" id="CylinderMesh_yu2s5"]
 material = SubResource("StandardMaterial3D_53ymm")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4vrpg"]
-albedo_color = Color(0.494118, 0.494118, 0.494118, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_psx30"]
+albedo_color = Color(1, 0.937255, 0.670588, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_68it3"]
-material = SubResource("StandardMaterial3D_4vrpg")
+material = SubResource("StandardMaterial3D_psx30")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1dnrt"]
 
@@ -52,7 +52,9 @@ sky_material = SubResource("ProceduralSkyMaterial_1dnrt")
 
 [sub_resource type="Environment" id="Environment_tx1ea"]
 background_mode = 2
+background_energy_multiplier = 1.8
 sky = SubResource("Sky_ucrq0")
+sky_custom_fov = 76.6
 sdfgi_enabled = true
 sdfgi_bounce_feedback = 0.72
 sdfgi_energy = 1.5
@@ -60,6 +62,25 @@ sdfgi_energy = 1.5
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_oktey"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fvvot"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xa7xo"]
+albedo_color = Color(0, 0.243137, 0.505882, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_y3bpo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gdrmx"]
+albedo_color = Color(0.203922, 0.203922, 0.203922, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g63oo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mslf5"]
+albedo_color = Color(0.0627451, 0.443137, 0.694118, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gaww4"]
+albedo_color = Color(0.882353, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i1a1y"]
+albedo_color = Color(0.85098, 1, 1, 1)
 
 [node name="Node3D" type="Node3D"]
 
@@ -71,10 +92,11 @@ physics_material_override = SubResource("PhysicsMaterial_lf1rp")
 shape = SubResource("BoxShape3D_1fab2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0107399, 0.0036512, 0.0013422)
 mesh = SubResource("BoxMesh_tw2sc")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(-0.01, 0, -4.41485e-08, 0, 0.01, 0, 4.41485e-10, 0, -0.01, 0, 0.4961, 0)
+transform = Transform3D(-0.01, 0, -4.41485e-08, 0, 0.01, 0, 4.41485e-10, 0, -0.01, 0, 0.49882, 0)
 mesh = SubResource("BoxMesh_m7ly8")
 skeleton = NodePath("")
 
@@ -215,7 +237,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174671, 0.325781, 4.52125)
 
 [node name="WorldBorder" type="Area3D" parent="."]
 transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, -11.1776, 0)
-script = ExtResource("3_miovg")
+script = ExtResource("3_uca5e")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WorldBorder"]
 shape = SubResource("WorldBoundaryShape3D_fvvot")
@@ -228,6 +250,80 @@ visible = false
 transform = Transform3D(10, 0, 0, 0, 4, 0, 0, 0, 3, 0.433634, 4.27994, -41.7173)
 
 [node name="UI" parent="." instance=ExtResource("6_q37sm")]
+
+[node name="Background" type="Node3D" parent="."]
+
+[node name="StadiumSits3" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 8, 55)
+mesh = ExtResource("7_j21wo")
+skeleton = NodePath("../..")
+surface_material_override/1 = SubResource("StandardMaterial3D_xa7xo")
+
+[node name="StadiumSits4" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(-3, 0, 2.62268e-07, 0, 3, 0, -2.62268e-07, 0, -3, 0, 8, -55)
+mesh = ExtResource("7_j21wo")
+skeleton = NodePath("../..")
+surface_material_override/1 = SubResource("StandardMaterial3D_xa7xo")
+
+[node name="StadiumFloor" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(75, 0, 0, 0, 75, 0, 0, 0, 75, 0, -2.5, 0)
+mesh = SubResource("PlaneMesh_y3bpo")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_gdrmx")
+
+[node name="Sea" type="MeshInstance3D" parent="Background"]
+transform = Transform3D(1000, 0, 0, 0, 1000, 0, 0, 0, 1000, 0, -3.5, 0)
+mesh = SubResource("PlaneMesh_g63oo")
+surface_material_override/0 = SubResource("StandardMaterial3D_mslf5")
+
+[node name="Icebergs" type="Node3D" parent="Background"]
+
+[node name="Iceberg1" type="MeshInstance3D" parent="Background/Icebergs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.9923, -10.1841, 115.954)
+mesh = ExtResource("8_6itug")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_gaww4")
+
+[node name="Iceberg2" type="MeshInstance3D" parent="Background/Icebergs"]
+transform = Transform3D(1.00791, 0, 0.651246, 0, 1.2, 0, -0.651246, 0, 1.00791, 165.323, -29.6978, 18.119)
+mesh = ExtResource("8_6itug")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_gaww4")
+
+[node name="Iceberg3" type="MeshInstance3D" parent="Background/Icebergs"]
+transform = Transform3D(0.621507, 0, 1.02651, 0, 1.2, 0, -1.02651, 0, 0.621507, -70.0925, -10.1841, -155.875)
+mesh = ExtResource("8_6itug")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_gaww4")
+
+[node name="Iceberg4" type="MeshInstance3D" parent="Background/Icebergs"]
+transform = Transform3D(0.621507, 0, 1.02651, 0, 1.2, 0, -1.02651, 0, 0.621507, -99.0881, -36.2615, 75.0212)
+mesh = ExtResource("8_6itug")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_gaww4")
+
+[node name="Iceberg5" type="MeshInstance3D" parent="Background/Icebergs"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -2.93983, 8.67963, 170.026)
+mesh = ExtResource("9_blnra")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_i1a1y")
+
+[node name="Iceberg6" type="MeshInstance3D" parent="Background/Icebergs"]
+transform = Transform3D(64.9076, 0, -76.0723, 0, 100, 0, 76.0723, 0, 64.9076, 123.95, 10.9568, -150.9)
+mesh = ExtResource("9_blnra")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_i1a1y")
+
+[node name="Iceberg7" type="MeshInstance3D" parent="Background/Icebergs"]
+transform = Transform3D(69.4231, 0, -71.9752, 0, 100, 0, 71.9752, 0, 69.4231, -155.159, -8.94646, -36.2219)
+mesh = ExtResource("9_blnra")
+skeleton = NodePath("../../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_i1a1y")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_n8pce")
+volume_db = -35.0
+autoplay = true
 
 [connection signal="stamina_update" from="PenguinMainScene/CharacterBody3D" to="UI" method="_on_character_body_3d_stamina_update"]
 [connection signal="body_shape_entered" from="WorldBorder" to="WorldBorder" method="_on_body_shape_entered"]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://v38luhixufux"
+path="res://.godot/imported/StadiumSits3.obj-692bfb21c5f937a4edfad771d59044ab.mesh"
+
+[deps]
+
+files=["res://.godot/imported/StadiumSits3.obj-692bfb21c5f937a4edfad771d59044ab.mesh"]
+
+source_file="res://resources/background/StadiumSits3.obj"
+dest_files=["res://.godot/imported/StadiumSits3.obj-692bfb21c5f937a4edfad771d59044ab.mesh", "res://.godot/imported/StadiumSits3.obj-692bfb21c5f937a4edfad771d59044ab.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
