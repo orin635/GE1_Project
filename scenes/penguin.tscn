@@ -139,6 +139,7 @@ skeleton = NodePath("../R_Foot")
 [node name="DirtParticles" type="GPUParticles3D" parent="CharacterBody3D/Body"]
 transform = Transform3D(-0.999869, 0, -0.0161958, 0, 1, 0, 0.0161958, 0, -0.999869, 0.00549443, -0.278086, 0.678462)
 material_override = SubResource("StandardMaterial3D_x6u0q")
+emitting = false
 amount = 50
 lifetime = 0.39
 visibility_aabb = AABB(-4, -4.33643, -4, 8, 8, 8)

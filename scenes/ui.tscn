@@ -1,12 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://pwol6xq6ndeb"]
 
-[ext_resource type="Script" path="res://scenes/ui.gd" id="1_n2d5u"]
+[ext_resource type="Script" path="res://scripts/ui.gd" id="1_borki"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bncns"]
 bg_color = Color(0.764706, 0.72549, 0, 1)
 
 [node name="UI" type="CanvasLayer"]
-script = ExtResource("1_n2d5u")
+script = ExtResource("1_borki")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -34,7 +34,7 @@ theme_override_constants/margin_bottom = 32
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-theme_override_font_sizes/font_size = 0
+theme_override_font_sizes/font_size = 25
 
 [node name="MarginContainer2" type="MarginContainer" parent="Control"]
 layout_mode = 2
