@@ -30,6 +30,25 @@ albedo_color = Color(0.807843, 0.733333, 0.101961, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_53uil"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x6u0q"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+albedo_color = Color(0.588235, 0.294118, 0, 1)
+albedo_texture = ExtResource("2_uakuh")
+billboard_mode = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6iyhv"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, -2, 0)
+angle_max = 361.8
+color = Color(0.331167, 0.253495, 0.23199, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_mjj1i"]
+
+[sub_resource type="Skin" id="Skin_uq2fe"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t0lvo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_icg73"]
@@ -52,10 +71,6 @@ particles_anim_loop = false
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wf0ef"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_mjj1i"]
-
-[sub_resource type="Skin" id="Skin_uq2fe"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x3br6"]
 transparency = 1
 blend_mode = 1
@@ -66,21 +81,6 @@ billboard_mode = 3
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6iyhv"]
-emission_shape = 1
-emission_sphere_radius = 1.0
-gravity = Vector3(0, -2, 0)
-angle_max = 361.8
-color = Color(0.331167, 0.253495, 0.23199, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x6u0q"]
-transparency = 1
-blend_mode = 1
-shading_mode = 0
-albedo_color = Color(0.588235, 0.294118, 0, 1)
-albedo_texture = ExtResource("2_uakuh")
-billboard_mode = 1
 
 [node name="main" type="Node3D"]
 
@@ -136,6 +136,16 @@ material_override = SubResource("StandardMaterial3D_nlxbr")
 mesh = SubResource("BoxMesh_53uil")
 skeleton = NodePath("../R_Foot")
 
+[node name="DirtParticles" type="GPUParticles3D" parent="CharacterBody3D/Body"]
+transform = Transform3D(-0.999869, 0, -0.0161958, 0, 1, 0, 0.0161958, 0, -0.999869, 0.00549443, -0.278086, 0.678462)
+material_override = SubResource("StandardMaterial3D_x6u0q")
+amount = 50
+lifetime = 0.39
+visibility_aabb = AABB(-4, -4.33643, -4, 8, 8, 8)
+process_material = SubResource("ParticleProcessMaterial_6iyhv")
+draw_pass_1 = SubResource("QuadMesh_mjj1i")
+draw_skin = SubResource("Skin_uq2fe")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0524251, 0)
 shape = SubResource("CapsuleShape3D_t0lvo")
@@ -179,19 +189,9 @@ draw_skin = SubResource("Skin_uq2fe")
 [node name="SmokeParticles" type="GPUParticles3D" parent="CharacterBody3D"]
 transform = Transform3D(0.999869, 0, 0.0161959, 0, 1, 0, -0.0161959, 0, 0.999869, 0, -1.20012, 0)
 material_override = SubResource("StandardMaterial3D_x3br6")
+emitting = false
 amount = 30
 lifetime = 3.0
-process_material = SubResource("ParticleProcessMaterial_6iyhv")
-draw_pass_1 = SubResource("QuadMesh_mjj1i")
-draw_skin = SubResource("Skin_uq2fe")
-
-[node name="DirtParticles" type="GPUParticles3D" parent="CharacterBody3D"]
-transform = Transform3D(0.999869, 0, 0.0161959, 0, 1, 0, -0.0161959, 0, 0.999869, 0, -2.47402, 0)
-material_override = SubResource("StandardMaterial3D_x6u0q")
-emitting = false
-amount = 50
-lifetime = 0.39
-explosiveness = 0.95
 process_material = SubResource("ParticleProcessMaterial_6iyhv")
 draw_pass_1 = SubResource("QuadMesh_mjj1i")
 draw_skin = SubResource("Skin_uq2fe")

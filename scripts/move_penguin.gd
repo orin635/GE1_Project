@@ -14,7 +14,7 @@ var charge_time = 0
 # INSTANTIATING DIRT PARTICLES
 @onready var grass_particles = $GrassParticles
 @onready var smoke_particles = $SmokeParticles
-@onready var dirt_particles = $DirtParticles
+@onready var dirt_particles = $Body/DirtParticles
 var smoke_particle_timer = 0
 var run_smoke_particle = false
 var run_grass_particle = false
