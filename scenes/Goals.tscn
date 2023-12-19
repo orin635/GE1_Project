@@ -650,7 +650,7 @@ scale_max = 0.0
 script = ExtResource("1_ry08r")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.104211, 6.51149, 0.990177)
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.328174, 4.4114, 1.02906)
 visible = false
 material_override = SubResource("StandardMaterial3D_5f5dr")
 mesh = SubResource("TextMesh_ayps3")
