@@ -116,7 +116,6 @@ mesh = SubResource("BoxMesh_lwet4")
 transform = Transform3D(45, 0, 0, 0, 3, 0, 0, 0, 1, 0, 2, -45.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pitch/Wall2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_d0hrn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch/Wall2"]
@@ -333,9 +332,6 @@ script = ExtResource("3_uca5e")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Background/WorldBorder"]
 shape = SubResource("WorldBoundaryShape3D_fvvot")
 
-[node name="Goals" parent="." instance=ExtResource("2_pit7y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -41)
-
 [node name="Grass2" parent="." instance=ExtResource("1_xok4v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.077, 0.5, 0.005)
 visible = false
@@ -350,8 +346,19 @@ autoplay = true
 [node name="goalkeeper" parent="." instance=ExtResource("11_wiotx")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, -37)
 
+[node name="Goals" parent="." instance=ExtResource("2_pit7y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.884962, -40.661)
+
 [connection signal="stamina_update" from="PenguinMainScene/CharacterBody3D" to="UI" method="_on_character_body_3d_stamina_update"]
 [connection signal="body_shape_entered" from="Background/WorldBorder" to="Background/WorldBorder" method="_on_body_shape_entered"]
+[connection signal="body_entered" from="Goals/look_area" to="goalkeeper/CharacterBody3D" method="_on_look_area_body_entered"]
+[connection signal="body_exited" from="Goals/look_area" to="goalkeeper/CharacterBody3D" method="_on_look_area_body_exited"]
+[connection signal="body_entered" from="Goals/defend_area" to="goalkeeper/CharacterBody3D" method="_on_defend_area_body_entered"]
+[connection signal="body_exited" from="Goals/defend_area" to="goalkeeper/CharacterBody3D" method="_on_defend_area_body_exited"]
+[connection signal="body_entered" from="Goals/attack_area" to="goalkeeper/CharacterBody3D" method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="Goals/attack_area" to="goalkeeper/CharacterBody3D" method="_on_attack_area_body_exited"]
+[connection signal="body_entered" from="Goals/load_area" to="goalkeeper/CharacterBody3D" method="_on_load_area_body_entered"]
 
 [editable path="PenguinMainScene"]
 [editable path="goalkeeper"]
+[editable path="Goals"]

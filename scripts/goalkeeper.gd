@@ -181,6 +181,8 @@ func animation(velocity, delta):
 		lWing.transform.origin = default_lwing_origin
 		rWing.transform.origin = default_rwing_origin
 
+
+
 #Look Areas
 func _on_look_area_body_entered(body):
 	if body is RigidBody3D:

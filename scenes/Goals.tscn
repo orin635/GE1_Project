@@ -1,10 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://c2y85jatbw43d"]
+[gd_scene load_steps=16 format=3 uid="uid://c2y85jatbw43d"]
 
 [ext_resource type="ArrayMesh" uid="uid://ct7bg8atrl5ca" path="res://resources/mesh/goals.res" id="1_j1wne"]
 [ext_resource type="Script" path="res://scripts/Goals.gd" id="1_ry08r"]
 [ext_resource type="ArrayMesh" uid="uid://td1m7vwvjnx2" path="res://resources/mesh/posts.res" id="2_a0mdn"]
 [ext_resource type="AudioStream" path="res://resources/sound/Alia intro meme.mp3" id="4_bv131"]
-[ext_resource type="Texture2D" uid="uid://wh5jwuu4e0up" path="res://resources/Particles/spark_02.png" id="5_s024y"]
+[ext_resource type="Texture2D" path="res://resources/Particles/spark_02.png" id="5_s024y"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5f5dr"]
 albedo_color = Color(0.388235, 0.803922, 0.0509804, 1)
@@ -644,6 +644,11 @@ scale_max = 0.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_gy3ju"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_8dat4"]
+size = Vector3(1.15197, 0.453404, 1.1799)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dnah3"]
+
 [node name="Goals" type="Node3D"]
 script = ExtResource("1_ry08r")
 
@@ -681,5 +686,53 @@ explosiveness = 0.36
 collision_base_size = 0.0
 process_material = SubResource("ParticleProcessMaterial_uw3bt")
 draw_pass_1 = SubResource("QuadMesh_gy3ju")
+
+[node name="look_area" type="Area3D" parent="."]
+transform = Transform3D(45, 0, 0, 0, 45, 3.19754e-13, 0, -3.19754e-13, 45, 0, 5.11895, 17.3157)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="look_area"]
+transform = Transform3D(1, 1.98523e-23, 0, 0, 1, 0, 0, 2.5411e-21, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_8dat4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="look_area"]
+transform = Transform3D(1.1526, 1.65436e-24, -9.31323e-10, -6.61744e-24, 0.443218, 2.5411e-21, 4.65661e-09, 0, 1.16711, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_dnah3")
+
+[node name="defend_area" type="Area3D" parent="."]
+transform = Transform3D(45, 0, 0, 0, 45, 3.19754e-13, 0, -3.19754e-13, 45, 0, 5.32027, 2.14027)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="defend_area"]
+transform = Transform3D(1, 1.98523e-23, 0, 0, 1, 0, 0, 2.5411e-21, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_8dat4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="defend_area"]
+transform = Transform3D(1.1526, 1.65436e-24, -9.31323e-10, -6.61744e-24, 0.443218, 2.5411e-21, 4.65661e-09, 0, 1.16711, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_dnah3")
+
+[node name="attack_area" type="Area3D" parent="."]
+transform = Transform3D(25, 0, 0, 0, 25, 1.77641e-13, 0, -1.77641e-13, 25, 0, 1.12107, -4.34479)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="attack_area"]
+transform = Transform3D(1, 1.98523e-23, 0, 0, 1, 0, 0, 2.5411e-21, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_8dat4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="attack_area"]
+transform = Transform3D(1.1526, 1.65436e-24, -9.31323e-10, -6.61744e-24, 0.443218, 2.5411e-21, 4.65661e-09, 0, 1.16711, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_dnah3")
+
+[node name="load_area" type="Area3D" parent="."]
+transform = Transform3D(100, 0, 0, 0, 100, 7.10565e-13, 0, -7.10565e-13, 100, 0, 17.1897, 9.13647)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="load_area"]
+transform = Transform3D(1, 1.98523e-23, 0, 0, 1, 0, 0, 2.5411e-21, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_8dat4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="load_area"]
+transform = Transform3D(1.1526, 1.65436e-24, -9.31323e-10, -6.61744e-24, 0.443218, 2.5411e-21, 4.65661e-09, 0, 1.16711, 0, 0, 0)
+visible = false
+mesh = SubResource("BoxMesh_dnah3")
 
 [connection signal="body_entered" from="net/Area3D" to="." method="_on_area_3d_body_entered"]
