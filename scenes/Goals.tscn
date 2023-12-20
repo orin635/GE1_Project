@@ -653,7 +653,7 @@ size = Vector3(1.15197, 0.453404, 1.1799)
 script = ExtResource("1_ry08r")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.328174, 4.4114, 1.02906)
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0.328174, 18.0208, 3.29876)
 visible = false
 material_override = SubResource("StandardMaterial3D_5f5dr")
 mesh = SubResource("TextMesh_ayps3")
@@ -678,10 +678,10 @@ surface_material_override/0 = SubResource("StandardMaterial3D_i2ifx")
 stream = ExtResource("4_bv131")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, -0.411148, 3.37209, -1.09305)
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, -0.411148, 5.32973, 1.43766)
 visible = false
 material_override = SubResource("StandardMaterial3D_7kvcd")
-amount = 600
+amount = 800
 explosiveness = 0.36
 collision_base_size = 0.0
 process_material = SubResource("ParticleProcessMaterial_uw3bt")
