@@ -10,7 +10,7 @@
 [ext_resource type="ArrayMesh" uid="uid://b2yq3c84wm7ly" path="res://resources/background/Iceberg1.obj" id="8_6itug"]
 [ext_resource type="ArrayMesh" uid="uid://4hwkq6u4bus4" path="res://resources/background/Iceberg2.obj" id="9_blnra"]
 [ext_resource type="AudioStream" uid="uid://c7pmcmqfh5w7e" path="res://resources/gamebackgroundmusic.mp3" id="10_n8pce"]
-[ext_resource type="PackedScene" uid="uid://bqtn8sram0ub3" path="res://scenes/goalkeeper.tscn" id="11_wiotx"]
+[ext_resource type="PackedScene" uid="uid://b5t0sopxte5ut" path="res://scenes/goalkeeper.tscn" id="11_wiotx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lf1rp"]
 rough = true
@@ -317,7 +317,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.077, 0.5, 0.005)
 visible = false
 
 [node name="Goals" parent="." instance=ExtResource("2_pit7y")]
-transform = Transform3D(10, 0, 0, 0, 4, 0, 0, 0, 3, 0.433634, 4.27994, -41.7173)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -41.717)
+
+[node name="attack_area" parent="Goals" index="4"]
+transform = Transform3D(25, 0, 0, 0, 25, 1.77641e-13, 0, -1.77641e-13, 25, 0, -1.71522, -3.65564)
 
 [node name="UI" parent="." instance=ExtResource("6_q37sm")]
 
@@ -327,13 +330,18 @@ volume_db = -35.0
 autoplay = true
 
 [node name="goalkeeper" parent="." instance=ExtResource("11_wiotx")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, -37)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, -37)
 
 [connection signal="body_shape_entered" from="Background/WorldBorder" to="Background/WorldBorder" method="_on_body_shape_entered"]
 [connection signal="stamina_update" from="PenguinMainScene/CharacterBody3D" to="UI" method="_on_character_body_3d_stamina_update"]
 [connection signal="goalScored" from="Goals" to="UI" method="_on_goals_goal_scored"]
+[connection signal="body_entered" from="Goals/look_area" to="goalkeeper/CharacterBody3D" method="_on_look_area_body_entered"]
+[connection signal="body_exited" from="Goals/look_area" to="goalkeeper/CharacterBody3D" method="_on_look_area_body_exited"]
 [connection signal="body_entered" from="Goals/defend_area" to="goalkeeper/CharacterBody3D" method="_on_defend_area_body_entered"]
 [connection signal="body_exited" from="Goals/defend_area" to="goalkeeper/CharacterBody3D" method="_on_defend_area_body_exited"]
+[connection signal="body_entered" from="Goals/attack_area" to="goalkeeper/CharacterBody3D" method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="Goals/attack_area" to="goalkeeper/CharacterBody3D" method="_on_attack_area_body_exited"]
+[connection signal="body_entered" from="Goals/load_area" to="goalkeeper/CharacterBody3D" method="_on_load_area_body_entered"]
 
 [editable path="PenguinMainScene"]
 [editable path="Goals"]

@@ -83,7 +83,6 @@ func get_input(delta):
 				run_grass_particle = true
 				#check if you just landed
 				if(was_in_air == true):
-					print("landed from sprint")
 					walk_sound.stop()
 					running_sound.play()
 					was_in_air = false
