@@ -59,14 +59,14 @@ List of classes/assets in the project
 
 References:
 
-Backround Music - chosic.com
-Icebregs + Stadium - poly.pizza
-Ball - free3d.com
-Sounds and objects - pixabay.com
-Particles - https://www.youtube.com/watch?v=DkJ2jYl-ESw&t=446s
-Particles - https://www.youtube.com/watch?v=tjSxICUXMmM
-Goal Music - https://www.youtube.com/watch?v=CHD8cWEVVcY
-Goals (made in blender) - https://www.youtube.com/watch?v=4-IXYiz9yLk
+- Backround Music - chosic.com
+- Icebregs + Stadium - poly.pizza
+- Ball - free3d.com
+- Sounds and objects - pixabay.com
+- Particles - https://www.youtube.com/watch?v=DkJ2jYl-ESw&t=446s
+- Particles - https://www.youtube.com/watch?v=tjSxICUXMmM
+- Goal Music - https://www.youtube.com/watch?v=CHD8cWEVVcY
+- Goals (made in blender) - https://www.youtube.com/watch?v=4-IXYiz9yLk
 
 What we are most proud of in the assignment
 - We are most proud of the collaborative effort and creativity demonstrated in developing Penguin Ball. 
