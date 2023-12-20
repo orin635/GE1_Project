@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cs574vn1ntiio" path="res://scenes/penguin.tscn" id="1_14ifo"]
 [ext_resource type="PackedScene" uid="uid://qt50ytkqxqvk" path="res://scenes/ball.tscn" id="1_if7w1"]
-[ext_resource type="PackedScene" path="res://scenes/grass.tscn" id="1_xok4v"]
+[ext_resource type="PackedScene" uid="uid://bwqfpqeqk2hbl" path="res://scenes/grass.tscn" id="1_xok4v"]
 [ext_resource type="PackedScene" uid="uid://c2y85jatbw43d" path="res://scenes/Goals.tscn" id="2_pit7y"]
 [ext_resource type="Script" path="res://scripts/outofbounds.gd" id="3_uca5e"]
 [ext_resource type="PackedScene" uid="uid://pwol6xq6ndeb" path="res://scenes/ui.tscn" id="6_q37sm"]
@@ -46,6 +46,24 @@ albedo_color = Color(1, 0.937255, 0.670588, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_68it3"]
 material = SubResource("StandardMaterial3D_psx30")
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1dnrt"]
+
+[sub_resource type="Sky" id="Sky_ucrq0"]
+sky_material = SubResource("ProceduralSkyMaterial_1dnrt")
+
+[sub_resource type="Environment" id="Environment_tx1ea"]
+background_mode = 2
+background_energy_multiplier = 1.8
+sky = SubResource("Sky_ucrq0")
+sky_custom_fov = 76.6
+sdfgi_enabled = true
+sdfgi_bounce_feedback = 0.72
+sdfgi_energy = 1.5
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_oktey"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fvvot"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xa7xo"]
 albedo_color = Color(0, 0.243137, 0.505882, 1)
 
@@ -64,24 +82,6 @@ albedo_color = Color(0.882353, 1, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i1a1y"]
 albedo_color = Color(0.85098, 1, 1, 1)
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1dnrt"]
-
-[sub_resource type="Sky" id="Sky_ucrq0"]
-sky_material = SubResource("ProceduralSkyMaterial_1dnrt")
-
-[sub_resource type="Environment" id="Environment_tx1ea"]
-background_mode = 2
-background_energy_multiplier = 1.8
-sky = SubResource("Sky_ucrq0")
-sky_custom_fov = 76.6
-sdfgi_enabled = true
-sdfgi_bounce_feedback = 0.72
-sdfgi_energy = 1.5
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_oktey"]
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fvvot"]
 
 [node name="World" type="Node3D"]
 
@@ -116,6 +116,7 @@ mesh = SubResource("BoxMesh_lwet4")
 transform = Transform3D(45, 0, 0, 0, 3, 0, 0, 0, 1, 0, 2, -45.5)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pitch/Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_d0hrn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch/Wall2"]
@@ -250,9 +251,6 @@ shape = SubResource("WorldBoundaryShape3D_fvvot")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.077, 0.5, 0.005)
 visible = false
 
-[node name="Goals" parent="." instance=ExtResource("2_pit7y")]
-transform = Transform3D(10, 0, 0, 0, 4, 0, 0, 0, 3, 0.433634, 4.27994, -41.7173)
-
 [node name="UI" parent="." instance=ExtResource("6_q37sm")]
 
 [node name="Background" type="Node3D" parent="."]
@@ -335,23 +333,14 @@ script = ExtResource("3_uca5e")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Background/WorldBorder"]
 shape = SubResource("WorldBoundaryShape3D_fvvot")
 
-[node name="Ball" parent="." instance=ExtResource("1_if7w1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="Goals" parent="." instance=ExtResource("2_pit7y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -41)
 
-[node name="PenguinMainScene" parent="." instance=ExtResource("1_14ifo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174671, 0.325781, 4.52125)
-
-[node name="Grass" parent="." instance=ExtResource("1_xok4v")]
+[node name="Grass2" parent="." instance=ExtResource("1_xok4v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.077, 0.5, 0.005)
 visible = false
 
-[node name="Goals" parent="." instance=ExtResource("2_pit7y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -41.717)
-
-[node name="attack_area" parent="Goals" index="4"]
-transform = Transform3D(25, 0, 0, 0, 25, 1.77641e-13, 0, -1.77641e-13, 25, 0, -1.71522, -3.65564)
-
-[node name="UI" parent="." instance=ExtResource("6_q37sm")]
+[node name="UI2" parent="." instance=ExtResource("6_q37sm")]
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_n8pce")
@@ -361,17 +350,8 @@ autoplay = true
 [node name="goalkeeper" parent="." instance=ExtResource("11_wiotx")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, -37)
 
-[connection signal="body_shape_entered" from="Background/WorldBorder" to="Background/WorldBorder" method="_on_body_shape_entered"]
 [connection signal="stamina_update" from="PenguinMainScene/CharacterBody3D" to="UI" method="_on_character_body_3d_stamina_update"]
-[connection signal="goalScored" from="Goals" to="UI" method="_on_goals_goal_scored"]
-[connection signal="body_entered" from="Goals/look_area" to="goalkeeper/CharacterBody3D" method="_on_look_area_body_entered"]
-[connection signal="body_exited" from="Goals/look_area" to="goalkeeper/CharacterBody3D" method="_on_look_area_body_exited"]
-[connection signal="body_entered" from="Goals/defend_area" to="goalkeeper/CharacterBody3D" method="_on_defend_area_body_entered"]
-[connection signal="body_exited" from="Goals/defend_area" to="goalkeeper/CharacterBody3D" method="_on_defend_area_body_exited"]
-[connection signal="body_entered" from="Goals/attack_area" to="goalkeeper/CharacterBody3D" method="_on_attack_area_body_entered"]
-[connection signal="body_exited" from="Goals/attack_area" to="goalkeeper/CharacterBody3D" method="_on_attack_area_body_exited"]
-[connection signal="body_entered" from="Goals/load_area" to="goalkeeper/CharacterBody3D" method="_on_load_area_body_entered"]
+[connection signal="body_shape_entered" from="Background/WorldBorder" to="Background/WorldBorder" method="_on_body_shape_entered"]
 
 [editable path="PenguinMainScene"]
-[editable path="Goals"]
 [editable path="goalkeeper"]
