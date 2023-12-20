@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://l4ftvqwnwvsb"
+path="res://.godot/imported/Speed SUI Sound effect.mp3-79bbede21dcd22eae19fea5d1b7f96bd.mp3str"
+
+[deps]
+
+source_file="res://scenes/Speed SUI Sound effect.mp3"
+dest_files=["res://.godot/imported/Speed SUI Sound effect.mp3-79bbede21dcd22eae19fea5d1b7f96bd.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
