@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cvxt36dwb8clm"]
+[gd_scene load_steps=36 format=3 uid="uid://cvxt36dwb8clm"]
 
 [ext_resource type="PackedScene" uid="uid://cs574vn1ntiio" path="res://scenes/penguin.tscn" id="1_14ifo"]
 [ext_resource type="PackedScene" uid="uid://qt50ytkqxqvk" path="res://scenes/ball.tscn" id="1_if7w1"]
@@ -10,6 +10,7 @@
 [ext_resource type="ArrayMesh" uid="uid://b2yq3c84wm7ly" path="res://resources/background/Iceberg1.obj" id="8_6itug"]
 [ext_resource type="ArrayMesh" uid="uid://4hwkq6u4bus4" path="res://resources/background/Iceberg2.obj" id="9_blnra"]
 [ext_resource type="AudioStream" uid="uid://c7pmcmqfh5w7e" path="res://resources/gamebackgroundmusic.mp3" id="10_n8pce"]
+[ext_resource type="PackedScene" uid="uid://b5t0sopxte5ut" path="res://scenes/goalkeeper.tscn" id="11_wiotx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lf1rp"]
 rough = true
@@ -45,24 +46,6 @@ albedo_color = Color(1, 0.937255, 0.670588, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_68it3"]
 material = SubResource("StandardMaterial3D_psx30")
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1dnrt"]
-
-[sub_resource type="Sky" id="Sky_ucrq0"]
-sky_material = SubResource("ProceduralSkyMaterial_1dnrt")
-
-[sub_resource type="Environment" id="Environment_tx1ea"]
-background_mode = 2
-background_energy_multiplier = 1.8
-sky = SubResource("Sky_ucrq0")
-sky_custom_fov = 76.6
-sdfgi_enabled = true
-sdfgi_bounce_feedback = 0.72
-sdfgi_energy = 1.5
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_oktey"]
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fvvot"]
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xa7xo"]
 albedo_color = Color(0, 0.243137, 0.505882, 1)
 
@@ -82,72 +65,92 @@ albedo_color = Color(0.882353, 1, 1, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i1a1y"]
 albedo_color = Color(0.85098, 1, 1, 1)
 
-[node name="Node3D" type="Node3D"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1dnrt"]
 
-[node name="Floor" type="StaticBody3D" parent="."]
+[sub_resource type="Sky" id="Sky_ucrq0"]
+sky_material = SubResource("ProceduralSkyMaterial_1dnrt")
+
+[sub_resource type="Environment" id="Environment_tx1ea"]
+background_mode = 2
+background_energy_multiplier = 1.8
+sky = SubResource("Sky_ucrq0")
+sky_custom_fov = 76.6
+sdfgi_enabled = true
+sdfgi_bounce_feedback = 0.72
+sdfgi_energy = 1.5
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_oktey"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_fvvot"]
+
+[node name="World" type="Node3D"]
+
+[node name="Pitch" type="Node3D" parent="."]
+
+[node name="Floor" type="StaticBody3D" parent="Pitch"]
 transform = Transform3D(45, 0, 0, 0, 10, 0, 0, 0, 90, 0.077, -4.5, 0.005)
 physics_material_override = SubResource("PhysicsMaterial_lf1rp")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pitch/Floor"]
 shape = SubResource("BoxShape3D_1fab2")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch/Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0107399, 0.0036512, 0.0013422)
 mesh = SubResource("BoxMesh_tw2sc")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Floor"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Pitch/Floor"]
 transform = Transform3D(-0.01, 0, -4.41485e-08, 0, 0.01, 0, 4.41485e-10, 0, -0.01, 0, 0.49882, 0)
 mesh = SubResource("BoxMesh_m7ly8")
 skeleton = NodePath("")
 
-[node name="Wall" type="StaticBody3D" parent="."]
+[node name="Wall" type="StaticBody3D" parent="Pitch"]
 transform = Transform3D(45, 0, 0, 0, 3, 0, 0, 0, 1, 0.012, 2, 45.5)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pitch/Wall"]
 shape = SubResource("BoxShape3D_d0hrn")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch/Wall"]
 mesh = SubResource("BoxMesh_lwet4")
 
-[node name="Wall2" type="StaticBody3D" parent="."]
+[node name="Wall2" type="StaticBody3D" parent="Pitch"]
 transform = Transform3D(45, 0, 0, 0, 3, 0, 0, 0, 1, 0, 2, -45.5)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pitch/Wall2"]
 shape = SubResource("BoxShape3D_d0hrn")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch/Wall2"]
 mesh = SubResource("BoxMesh_lwet4")
 
-[node name="Wall3" type="StaticBody3D" parent="."]
+[node name="Wall3" type="StaticBody3D" parent="Pitch"]
 transform = Transform3D(-3.93402e-06, 0, 1, 0, 3, 0, -90, 0, -4.37114e-08, -22.5, 2, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall3"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pitch/Wall3"]
 shape = SubResource("BoxShape3D_d0hrn")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall3"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch/Wall3"]
 mesh = SubResource("BoxMesh_lwet4")
 
-[node name="Wall4" type="StaticBody3D" parent="."]
+[node name="Wall4" type="StaticBody3D" parent="Pitch"]
 transform = Transform3D(-3.93402e-06, 0, 1, 0, 3, 0, -90, 0, -4.37114e-08, 22.5, 2, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall4"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pitch/Wall4"]
 shape = SubResource("BoxShape3D_d0hrn")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Wall4"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch/Wall4"]
 mesh = SubResource("BoxMesh_lwet4")
 
-[node name="FloodLight" type="Node3D" parent="."]
+[node name="FloodLight" type="Node3D" parent="Pitch"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="FloodLight"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch/FloodLight"]
 transform = Transform3D(1, 0, 0, 0, 15, 0, 0, 0, 1, 22.5, 15, 45.5)
 mesh = SubResource("CylinderMesh_yu2s5")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="FloodLight/MeshInstance3D"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Pitch/FloodLight/MeshInstance3D"]
 transform = Transform3D(8.98224, -1.36129, 0.345001, 0.00636912, 0.222649, 0.0525147, -4.38791, -2.54848, 0.739877, -0.5, 1.022, -0.5)
 mesh = SubResource("BoxMesh_68it3")
 skeleton = NodePath("../..")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="FloodLight/MeshInstance3D/MeshInstance3D2"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Pitch/FloodLight/MeshInstance3D/MeshInstance3D2"]
 transform = Transform3D(0.100028, 0.00164486, 0.000548847, -5.21541e-08, 0.226476, -0.0124542, 5.96046e-08, 2.98023e-08, 0.882844, -0.00280905, 0.182382, -0.772934)
 light_energy = 16.0
 light_indirect_energy = 4.233
@@ -157,19 +160,19 @@ shadow_enabled = true
 spot_range = 175.764
 spot_angle = 51.9475
 
-[node name="FloodLight2" type="Node3D" parent="."]
+[node name="FloodLight2" type="Node3D" parent="Pitch"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -22.5, 0, -22.5)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="FloodLight2"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch/FloodLight2"]
 transform = Transform3D(0.950895, 0, 0.309515, 0, 15, 0, -0.309515, 0, 0.950895, 22.5, 15, 45.5)
 mesh = SubResource("CylinderMesh_yu2s5")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="FloodLight2/MeshInstance3D"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Pitch/FloodLight2/MeshInstance3D"]
 transform = Transform3D(8.98224, -1.36129, 0.345001, 0.00636912, 0.222649, 0.0525147, -4.38791, -2.54848, 0.739877, -0.5, 1.022, -0.5)
 mesh = SubResource("BoxMesh_68it3")
 skeleton = NodePath("../..")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="FloodLight2/MeshInstance3D/MeshInstance3D2"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Pitch/FloodLight2/MeshInstance3D/MeshInstance3D2"]
 transform = Transform3D(1, 4.46909e-07, -5.95921e-07, -4.46909e-07, 1, 4.21965e-09, 5.95921e-07, -4.21938e-09, 1, -0.00280905, 0.182382, -0.77293)
 light_energy = 16.0
 light_indirect_energy = 4.233
@@ -179,20 +182,19 @@ shadow_enabled = true
 spot_range = 189.976
 spot_angle = 52.8046
 
-[node name="FloodLight3" type="Node3D" parent="."]
+[node name="FloodLight3" type="Node3D" parent="Pitch"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.90735e-06, 0, -1.90735e-06)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="FloodLight3"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch/FloodLight3"]
 transform = Transform3D(0.950895, 0, 0.309515, 0, 15, 0, -0.309515, 0, 0.950895, 22.5, 15, 45.5)
 mesh = SubResource("CylinderMesh_yu2s5")
-skeleton = NodePath("../../FloodLight3")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="FloodLight3/MeshInstance3D"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Pitch/FloodLight3/MeshInstance3D"]
 transform = Transform3D(8.98224, -1.36129, 0.345001, 0.00636912, 0.222649, 0.0525147, -4.38791, -2.54848, 0.739877, -0.5, 1.022, -0.5)
 mesh = SubResource("BoxMesh_68it3")
-skeleton = NodePath("../../../FloodLight3")
+skeleton = NodePath("../..")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="FloodLight3/MeshInstance3D/MeshInstance3D2"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Pitch/FloodLight3/MeshInstance3D/MeshInstance3D2"]
 transform = Transform3D(1, 4.46909e-07, -5.95921e-07, -4.46909e-07, 1, 4.21965e-09, 5.95921e-07, -4.21938e-09, 1, -0.00280905, 0.182382, -0.77293)
 light_energy = 16.0
 light_indirect_energy = 4.233
@@ -202,20 +204,19 @@ shadow_enabled = true
 spot_range = 189.976
 spot_angle = 52.4161
 
-[node name="FloodLight4" type="Node3D" parent="."]
+[node name="FloodLight4" type="Node3D" parent="Pitch"]
 transform = Transform3D(0.483084, 0, -0.875574, 0, 1, 0, 0.875574, 0, 0.483084, 6.45773, 0, 3.79034)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="FloodLight4"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pitch/FloodLight4"]
 transform = Transform3D(1, 0, 0, 0, 15, 0, 0, 0, 1, 22.5, 15, 45.5)
 mesh = SubResource("CylinderMesh_yu2s5")
-skeleton = NodePath("../../FloodLight4")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="FloodLight4/MeshInstance3D"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Pitch/FloodLight4/MeshInstance3D"]
 transform = Transform3D(8.98224, -1.36129, 0.345001, 0.00636912, 0.222649, 0.0525147, -4.38791, -2.54848, 0.739877, -0.5, 1.022, -0.5)
 mesh = SubResource("BoxMesh_68it3")
-skeleton = NodePath("../../../FloodLight4")
+skeleton = NodePath("../..")
 
-[node name="SpotLight3D" type="SpotLight3D" parent="FloodLight4/MeshInstance3D/MeshInstance3D2"]
+[node name="SpotLight3D" type="SpotLight3D" parent="Pitch/FloodLight4/MeshInstance3D/MeshInstance3D2"]
 transform = Transform3D(1, 4.46909e-07, -5.95921e-07, -4.46909e-07, 1, 4.21965e-09, 5.95921e-07, -4.21938e-09, 1, -0.00280905, 0.182382, -0.77293)
 light_energy = 16.0
 light_indirect_energy = 4.233
@@ -323,13 +324,54 @@ mesh = ExtResource("9_blnra")
 skeleton = NodePath("../../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_i1a1y")
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Background"]
+environment = SubResource("Environment_tx1ea")
+camera_attributes = SubResource("CameraAttributesPractical_oktey")
+
+[node name="WorldBorder" type="Area3D" parent="Background"]
+transform = Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, -11.1776, 0)
+script = ExtResource("3_uca5e")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Background/WorldBorder"]
+shape = SubResource("WorldBoundaryShape3D_fvvot")
+
+[node name="Ball" parent="." instance=ExtResource("1_if7w1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="PenguinMainScene" parent="." instance=ExtResource("1_14ifo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174671, 0.325781, 4.52125)
+
+[node name="Grass" parent="." instance=ExtResource("1_xok4v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.077, 0.5, 0.005)
+visible = false
+
+[node name="Goals" parent="." instance=ExtResource("2_pit7y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -41.717)
+
+[node name="attack_area" parent="Goals" index="4"]
+transform = Transform3D(25, 0, 0, 0, 25, 1.77641e-13, 0, -1.77641e-13, 25, 0, -1.71522, -3.65564)
+
+[node name="UI" parent="." instance=ExtResource("6_q37sm")]
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_n8pce")
 volume_db = -35.0
 autoplay = true
 
+[node name="goalkeeper" parent="." instance=ExtResource("11_wiotx")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.5, -37)
+
+[connection signal="body_shape_entered" from="Background/WorldBorder" to="Background/WorldBorder" method="_on_body_shape_entered"]
 [connection signal="stamina_update" from="PenguinMainScene/CharacterBody3D" to="UI" method="_on_character_body_3d_stamina_update"]
-[connection signal="body_shape_entered" from="WorldBorder" to="WorldBorder" method="_on_body_shape_entered"]
 [connection signal="goalScored" from="Goals" to="UI" method="_on_goals_goal_scored"]
+[connection signal="body_entered" from="Goals/look_area" to="goalkeeper/CharacterBody3D" method="_on_look_area_body_entered"]
+[connection signal="body_exited" from="Goals/look_area" to="goalkeeper/CharacterBody3D" method="_on_look_area_body_exited"]
+[connection signal="body_entered" from="Goals/defend_area" to="goalkeeper/CharacterBody3D" method="_on_defend_area_body_entered"]
+[connection signal="body_exited" from="Goals/defend_area" to="goalkeeper/CharacterBody3D" method="_on_defend_area_body_exited"]
+[connection signal="body_entered" from="Goals/attack_area" to="goalkeeper/CharacterBody3D" method="_on_attack_area_body_entered"]
+[connection signal="body_exited" from="Goals/attack_area" to="goalkeeper/CharacterBody3D" method="_on_attack_area_body_exited"]
+[connection signal="body_entered" from="Goals/load_area" to="goalkeeper/CharacterBody3D" method="_on_load_area_body_entered"]
 
 [editable path="PenguinMainScene"]
+[editable path="Goals"]
+[editable path="goalkeeper"]

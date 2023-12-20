@@ -15,7 +15,6 @@ func update_score():
 
 
 func _on_goals_goal_scored():
-	print("SCORE!!!!")
 	update_score()
 
 
