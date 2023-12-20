@@ -47,6 +47,7 @@ List of classes/assets in the project
 - Penguin.tscn
 - Ui.tscn
 - World.tscn
+- goalkeeper.tscn
 
 ***** Scripts *****
 - ball.gd
@@ -55,6 +56,7 @@ List of classes/assets in the project
 - move_penguin.gd
 - outofbounds.gd
 - ui.gd
+- goalkeeper.gd
 
 
 References:
@@ -77,6 +79,9 @@ What we learned
 - Through the development of Penguin Ball, We gained valuable insights into game design, 3D modeling, particle effects, and audio integration.
 - The use of Godot Engine for scripting and scene creation provided a hands-on learning experience, allowing for the implementation of player controls, AI behavior, and visual/audio enhancements.
 - The project's diverse set of features, from goal celebrations to shooting mechanics, reflects a broadened skill set in game development and a deeper understanding of the Godot Engine's capabilities.
+
+Youtube Video Demo
+- 
 
 
 
