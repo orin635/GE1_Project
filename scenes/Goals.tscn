@@ -688,7 +688,7 @@ process_material = SubResource("ParticleProcessMaterial_uw3bt")
 draw_pass_1 = SubResource("QuadMesh_gy3ju")
 
 [node name="look_area" type="Area3D" parent="."]
-transform = Transform3D(45, 0, 0, 0, 45, 3.19754e-13, 0, -3.19754e-13, 45, 0, 5.11895, 17.3157)
+transform = Transform3D(45, 0, 0, 0, 45, 3.19754e-13, 0, -3.19754e-13, 45, 0, 10.1189, 17.3157)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="look_area"]
 transform = Transform3D(1, 1.98523e-23, 0, 0, 1, 0, 0, 2.5411e-21, 1, 0, 0, 0)
@@ -700,7 +700,7 @@ visible = false
 mesh = SubResource("BoxMesh_dnah3")
 
 [node name="defend_area" type="Area3D" parent="."]
-transform = Transform3D(45, 0, 0, 0, 45, 3.19754e-13, 0, -3.19754e-13, 45, 0, 5.32027, 2.14027)
+transform = Transform3D(45, 0, 0, 0, 45, 3.19754e-13, 0, -3.19754e-13, 45, 0, 10.3203, 2.14027)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="defend_area"]
 transform = Transform3D(1, 1.98523e-23, 0, 0, 1, 0, 0, 2.5411e-21, 1, 0, 0, 0)
@@ -712,7 +712,7 @@ visible = false
 mesh = SubResource("BoxMesh_dnah3")
 
 [node name="attack_area" type="Area3D" parent="."]
-transform = Transform3D(25, 0, 0, 0, 25, 1.77641e-13, 0, -1.77641e-13, 25, 0, 1.12107, -4.34479)
+transform = Transform3D(25, 0, 0, 0, 25, 1.77641e-13, 0, -1.77641e-13, 25, 0, 6.12107, -4.34479)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="attack_area"]
 transform = Transform3D(1, 1.98523e-23, 0, 0, 1, 0, 0, 2.5411e-21, 1, 0, 0, 0)

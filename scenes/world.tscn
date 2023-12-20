@@ -340,6 +340,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.884962, -40.661)
 
 [connection signal="body_shape_entered" from="Background/WorldBorder" to="Background/WorldBorder" method="_on_body_shape_entered"]
 [connection signal="stamina_update" from="PenguinMainScene/CharacterBody3D" to="UI" method="_on_character_body_3d_stamina_update"]
+[connection signal="goalScored" from="Goals" to="UI" method="_on_goals_goal_scored"]
 [connection signal="body_entered" from="Goals/look_area" to="goalkeeper/CharacterBody3D" method="_on_look_area_body_entered"]
 [connection signal="body_exited" from="Goals/look_area" to="goalkeeper/CharacterBody3D" method="_on_look_area_body_exited"]
 [connection signal="body_entered" from="Goals/defend_area" to="goalkeeper/CharacterBody3D" method="_on_defend_area_body_entered"]
